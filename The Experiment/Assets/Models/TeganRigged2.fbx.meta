@@ -1,0 +1,353 @@
+fileFormatVersion: 2
+guid: 55488c619d22244e5a15752aa8fa3e99
+timeCreated: 1454286964
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cylinder
+    100004: dressback
+    100006: dressback_end
+    100008: dresslow
+    100010: dresslow_end
+    100012: dressup
+    100014: foot.l
+    100016: foot.l_end
+    100018: foot.r
+    100020: foot.r_end
+    100022: head
+    100024: head_end
+    100026: lowarm.r
+    100028: lowerarm.l
+    100030: lowerspine
+    100032: lowindex.r
+    100034: lowmiddle.r
+    100036: lowpinkie.r
+    100038: lowring.r
+    100040: lowthumb.l
+    100042: lowthumb.r
+    100044: lowthumb.r_end
+    100046: neck
+    100048: palm.l
+    100050: palm.r
+    100052: palmthumb.l
+    100054: palmthumb.r
+    100056: Root
+    100058: shin.l
+    100060: shin.r
+    100062: shouldeer.r
+    100064: shoulder.l
+    100066: //RootNode
+    100068: thigh.l
+    100070: thigh.r
+    100072: uparm.l
+    100074: uparm.r
+    100076: upindex.l
+    100078: upindex.r
+    100080: upindex.r_end
+    100082: upmiddle.l
+    100084: upmiddle.r
+    100086: upmiddle.r_end
+    100088: upperindex.l
+    100090: upperindex.l_end
+    100092: uppermiddle.l
+    100094: uppermiddle.l_end
+    100096: upperpinkie.l
+    100098: upperpinkie.l_end
+    100100: upperring.l
+    100102: upperring.l_end
+    100104: upperspine
+    100106: uppinkie.l
+    100108: uppinkie.r
+    100110: uppinkie.r_end
+    100112: upring.l
+    100114: upring.r
+    100116: upring.r_end
+    100118: upthumb.l
+    100120: upthumb.l_end
+    100122: upthumb.r
+    400000: Armature
+    400002: Cylinder
+    400004: dressback
+    400006: dressback_end
+    400008: dresslow
+    400010: dresslow_end
+    400012: dressup
+    400014: foot.l
+    400016: foot.l_end
+    400018: foot.r
+    400020: foot.r_end
+    400022: head
+    400024: head_end
+    400026: lowarm.r
+    400028: lowerarm.l
+    400030: lowerspine
+    400032: lowindex.r
+    400034: lowmiddle.r
+    400036: lowpinkie.r
+    400038: lowring.r
+    400040: lowthumb.l
+    400042: lowthumb.r
+    400044: lowthumb.r_end
+    400046: neck
+    400048: palm.l
+    400050: palm.r
+    400052: palmthumb.l
+    400054: palmthumb.r
+    400056: Root
+    400058: shin.l
+    400060: shin.r
+    400062: shouldeer.r
+    400064: shoulder.l
+    400066: //RootNode
+    400068: thigh.l
+    400070: thigh.r
+    400072: uparm.l
+    400074: uparm.r
+    400076: upindex.l
+    400078: upindex.r
+    400080: upindex.r_end
+    400082: upmiddle.l
+    400084: upmiddle.r
+    400086: upmiddle.r_end
+    400088: upperindex.l
+    400090: upperindex.l_end
+    400092: uppermiddle.l
+    400094: uppermiddle.l_end
+    400096: upperpinkie.l
+    400098: upperpinkie.l_end
+    400100: upperring.l
+    400102: upperring.l_end
+    400104: upperspine
+    400106: uppinkie.l
+    400108: uppinkie.r
+    400110: uppinkie.r_end
+    400112: upring.l
+    400114: upring.r
+    400116: upring.r_end
+    400118: upthumb.l
+    400120: upthumb.l_end
+    400122: upthumb.r
+    4300000: Cylinder
+    7400000: Idle
+    7400002: Armature|CameraAction
+    7400004: Cylinder|CameraAction
+    9500000: //RootNode
+    13700000: Cylinder
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Armature|ArmatureAction.001
+      firstFrame: 0
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/dressback
+        weight: 1
+      - path: Armature/dressback/dressback_end
+        weight: 1
+      - path: Armature/dressup
+        weight: 1
+      - path: Armature/dressup/dresslow
+        weight: 1
+      - path: Armature/dressup/dresslow/dresslow_end
+        weight: 1
+      - path: Armature/Root
+        weight: 1
+      - path: Armature/Root/lowerspine
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/neck
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/neck/head
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/neck/head/head_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowindex.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowindex.r/upindex.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowindex.r/upindex.r/upindex.r_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowmiddle.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowmiddle.r/upmiddle.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowmiddle.r/upmiddle.r/upmiddle.r_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowpinkie.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowpinkie.r/uppinkie.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowpinkie.r/uppinkie.r/uppinkie.r_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowring.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowring.r/upring.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palm.r/lowring.r/upring.r/upring.r_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palmthumb.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palmthumb.r/upthumb.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palmthumb.r/upthumb.r/lowthumb.r
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shouldeer.r/uparm.r/lowarm.r/palmthumb.r/upthumb.r/lowthumb.r/lowthumb.r_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upindex.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upindex.l/upperindex.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upindex.l/upperindex.l/upperindex.l_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upmiddle.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upmiddle.l/uppermiddle.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upmiddle.l/uppermiddle.l/uppermiddle.l_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/uppinkie.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/uppinkie.l/upperpinkie.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/uppinkie.l/upperpinkie.l/upperpinkie.l_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upring.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upring.l/upperring.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palm.l/upring.l/upperring.l/upperring.l_end
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palmthumb.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palmthumb.l/lowthumb.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palmthumb.l/lowthumb.l/upthumb.l
+        weight: 1
+      - path: Armature/Root/lowerspine/upperspine/shoulder.l/uparm.l/lowerarm.l/palmthumb.l/lowthumb.l/upthumb.l/upthumb.l_end
+        weight: 1
+      - path: Armature/Root/thigh.l
+        weight: 1
+      - path: Armature/Root/thigh.l/shin.l
+        weight: 1
+      - path: Armature/Root/thigh.l/shin.l/foot.l
+        weight: 1
+      - path: Armature/Root/thigh.l/shin.l/foot.l/foot.l_end
+        weight: 1
+      - path: Armature/Root/thigh.r
+        weight: 1
+      - path: Armature/Root/thigh.r/shin.r
+        weight: 1
+      - path: Armature/Root/thigh.r/shin.r/foot.r
+        weight: 1
+      - path: Armature/Root/thigh.r/shin.r/foot.r/foot.r_end
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

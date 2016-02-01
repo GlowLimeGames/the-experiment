@@ -1,0 +1,170 @@
+fileFormatVersion: 2
+guid: eb7b4a889d6184e609e547f072620c95
+timeCreated: 1454286967
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Cylinder
+    100004: dressback
+    100006: dresslow
+    100008: dressup
+    100010: foot_l
+    100012: foot_r
+    100014: head
+    100016: lowarm_r
+    100018: lowerarm_l
+    100020: lowerspine
+    100022: lowindex_r
+    100024: lowmiddle_r
+    100026: lowpinkie_r
+    100028: lowring_r
+    100030: lowthumb_l
+    100032: lowthumb_r
+    100034: neck
+    100036: palm_l
+    100038: palm_r
+    100040: palmthumb_l
+    100042: palmthumb_r
+    100044: Root
+    100046: shin_l
+    100048: shin_r
+    100050: shouldeer_r
+    100052: shoulder_l
+    100054: //RootNode
+    100056: thigh_l
+    100058: thigh_r
+    100060: uparm_l
+    100062: uparm_r
+    100064: upindex_l
+    100066: upindex_r
+    100068: upmiddle_l
+    100070: upmiddle_r
+    100072: upperindex_l
+    100074: uppermiddle_l
+    100076: upperpinkie_l
+    100078: upperring_l
+    100080: upperspine
+    100082: uppinkie_l
+    100084: uppinkie_r
+    100086: upring_l
+    100088: upring_r
+    100090: upthumb_l
+    100092: upthumb_r
+    400000: Armature
+    400002: Cylinder
+    400004: dressback
+    400006: dresslow
+    400008: dressup
+    400010: foot_l
+    400012: foot_r
+    400014: head
+    400016: lowarm_r
+    400018: lowerarm_l
+    400020: lowerspine
+    400022: lowindex_r
+    400024: lowmiddle_r
+    400026: lowpinkie_r
+    400028: lowring_r
+    400030: lowthumb_l
+    400032: lowthumb_r
+    400034: neck
+    400036: palm_l
+    400038: palm_r
+    400040: palmthumb_l
+    400042: palmthumb_r
+    400044: Root
+    400046: shin_l
+    400048: shin_r
+    400050: shouldeer_r
+    400052: shoulder_l
+    400054: //RootNode
+    400056: thigh_l
+    400058: thigh_r
+    400060: uparm_l
+    400062: uparm_r
+    400064: upindex_l
+    400066: upindex_r
+    400068: upmiddle_l
+    400070: upmiddle_r
+    400072: upperindex_l
+    400074: uppermiddle_l
+    400076: upperpinkie_l
+    400078: upperring_l
+    400080: upperspine
+    400082: uppinkie_l
+    400084: uppinkie_r
+    400086: upring_l
+    400088: upring_r
+    400090: upthumb_l
+    400092: upthumb_r
+    4300000: Cylinder
+    7400000: Default Take
+    7400002: ArmatureAction_001
+    9500000: //RootNode
+    13700000: Cylinder
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
