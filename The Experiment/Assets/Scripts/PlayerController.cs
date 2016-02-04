@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 	public float grabRange = 5.0f;
+	public float grabRadius = 5.0f;
 
 	private bool inRangeInteract = false;
 	private PlayerMovement p_Movement;
@@ -22,9 +23,9 @@ public class PlayerController : MonoBehaviour {
 		// Raycast from player to see what is in front of player
 		bool interact = Input.GetKey (KeyCode.F);
 
-		Ray grabRay = new Ray (transform.position + Vector3.up * 0.5f, transform.forward);
+		Ray grabRay = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
-		if (Physics.Raycast (grabRay,out hit, grabRange)){
+		if (Physics.SphereCast (grabRay, grabRadius,out hit, grabRange)){
 			if (hit.transform.CompareTag ("Usable")) {
 				inRangeInteract = true;
 				if (interact) {
