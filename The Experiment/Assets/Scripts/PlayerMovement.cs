@@ -9,14 +9,19 @@ public class PlayerMovement : MonoBehaviour {
 	private float currentRotation = 0f;
 	private bool rotating = false;
 	private Rigidbody rb;
+	private Animator anim;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody> ();
+		anim = GetComponentInChildren<Animator> ();
 	}
 
 	public void Move(float horizontal, float vertical){
 		if (horizontal == 0 && vertical == 0) {
 			Stop (); // if not moving, stop rotating
+			anim.SetBool("Moving", false);
+		} else {
+			anim.SetBool ("Moving", true);
 		}
 
 		if (horizontal < 0 && vertical > 0) {
