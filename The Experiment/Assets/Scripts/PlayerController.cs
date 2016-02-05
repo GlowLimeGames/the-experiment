@@ -38,10 +38,16 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		// if in range with interactable object display interact button
-		if (inRangeInteract) {
-			CanvasController.Instance.DisplayInteractButton (true);
-		} else {
-			CanvasController.Instance.DisplayInteractButton (false);
-		}
+        if (CanvasController.Instance)
+        {
+            if (inRangeInteract)
+            {
+                CanvasController.Instance.DisplayInteractButton(true);
+            }
+            else
+            {
+                CanvasController.Instance.DisplayInteractButton(false);
+            }
+        }
 	}
 }
