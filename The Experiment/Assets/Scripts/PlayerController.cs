@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour {
 
 	private bool inRangeInteract = false;
 	private PlayerMovement p_Movement;
-	private bool testFlag = false;
 	// Use this for initialization
 	void Start () {
 		p_Movement = GetComponent<PlayerMovement> ();
@@ -33,13 +32,12 @@ public class PlayerController : MonoBehaviour {
 				if (interact) {
 					hit.transform.gameObject.SendMessage ("Use", SendMessageOptions.DontRequireReceiver);
 					// Testing dialog below
-					if (!testFlag) {
+					if (!dialogBox.IsDisplaying()) {
 						dialogBox.SetDialogQueue (new DialogCard[] {
-							new DialogCard (2000f, "Villain get the money like curls,\nthey just tryin' to get a nut like squirrels in his mad world..."),
-							new DialogCard (2000f, "Land of milk and honey with the swirls,\nwhere reckless naked girls get necklaces of pearls...")
+							new DialogCard (2000f, "Villain get the money like *curls*,\nthey just tryin' to get a nut like *squirrels* in his mad *world*..."),
+							new DialogCard (2000f, "Land of milk and honey with the *swirls*,\nwhere reckless naked *girls* get necklaces of *pearls*...")
 						});
 						dialogBox.DisplayNextCard ();
-						testFlag = true;
 					}
 					// Items with usable tag will have a Use function
 				}
