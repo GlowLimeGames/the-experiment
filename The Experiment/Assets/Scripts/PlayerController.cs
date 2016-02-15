@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 	public float grabRange = 5.0f;
 	public float grabRadius = 5.0f;
+	public DialogBox dialogBox;
 
 	private bool inRangeInteract = false;
 	private PlayerMovement p_Movement;
@@ -25,11 +26,19 @@ public class PlayerController : MonoBehaviour {
 
 		Ray grabRay = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
-		if (Physics.SphereCast (grabRay, grabRadius,out hit, grabRange)){
+		if (Physics.SphereCast (grabRay, grabRadius, out hit, grabRange)){
 			if (hit.transform.CompareTag ("Usable")) {
 				inRangeInteract = true;
 				if (interact) {
-					hit.transform.gameObject.SendMessage ("Use", SendMessageOptions.DontRequireReceiver); 
+					hit.transform.gameObject.SendMessage ("Use", SendMessageOptions.DontRequireReceiver);
+					// Testing dialog below
+					if (!dialogBox.IsDisplaying()) {
+						dialogBox.SetDialogQueue (new DialogCard[] {
+							new DialogCard (2000f, "Villain get the money like *curls*,\nthey just tryin' to get a nut like *squirrels* in his mad *world*..."),
+							new DialogCard (2000f, "Land of milk and honey with the *swirls*,\nwhere reckless naked *girls* get necklaces of *pearls*...")
+						});
+						dialogBox.DisplayNextCard ();
+					}
 					// Items with usable tag will have a Use function
 				}
 			}
