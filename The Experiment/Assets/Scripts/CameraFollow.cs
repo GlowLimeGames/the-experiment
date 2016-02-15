@@ -26,6 +26,10 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("The how much we can zoom in and out.")]
     public float minZoom, maxZoom;
 
+    [Tooltip("How steep the view is at min zoom and max zoom respectively (radians).")]
+    [Range(0, Mathf.PI / 2)]
+    public float minTheta = Mathf.PI / 2, maxTheta = Mathf.PI / 4;
+
     void Start()
     {
         // Listen to when the vantage areas are entered/exited
@@ -81,7 +85,7 @@ public class CameraFollow : MonoBehaviour
     {
         // Zoom in/out
         rho = Mathf.Clamp(rho + Input.mouseScrollDelta.y, minZoom, maxZoom);
-        theta = Mathf.Lerp((Mathf.PI / 2f) * 7f / 8f, Mathf.PI / 8f, (rho - minZoom) / (maxZoom - minZoom));
+        theta = Mathf.Lerp(minTheta, maxTheta, (rho - minZoom) / (maxZoom - minZoom));
 
         if (Input.GetKey(KeyCode.Q))
             phi -= Time.deltaTime;
