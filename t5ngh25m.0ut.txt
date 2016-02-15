@@ -1,0 +1,267 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	deleted:    .gitignore
+#	deleted:    README.md
+#	deleted:    The Experiment/Assets/Animation.meta
+#	deleted:    The Experiment/Assets/Animation/Canvas.controller
+#	deleted:    The Experiment/Assets/Animation/Canvas.controller.meta
+#	deleted:    The Experiment/Assets/Animation/IdleCanvas.anim
+#	deleted:    The Experiment/Assets/Animation/IdleCanvas.anim.meta
+#	deleted:    The Experiment/Assets/Animation/InteractButton.anim
+#	deleted:    The Experiment/Assets/Animation/InteractButton.anim.meta
+#	deleted:    The Experiment/Assets/CircuitGame.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/BlankSquare.png
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/BlankSquare.png.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CircuitColor.mat
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CircuitColor.mat.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Circuitry.jpg
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Circuitry.jpg.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CircuitryTexture.mat
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CircuitryTexture.mat.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CrossCircuit.png
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/CrossCircuit.png.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Goal.jpg
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Goal.jpg.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Start.jpg
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Start.jpg.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Thumbs.db
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/Thumbs.db.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/circuitLine.png
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/circuitLine.png.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/crossLine.png
+#	deleted:    The Experiment/Assets/CircuitGame/Materials/crossLine.png.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/CircuitPiece.prefab
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/CircuitPiece.prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Circuitry.prefab
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Circuitry.prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/CrossCircuit.prefab
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/CrossCircuit.prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Goal.prefab
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Goal.prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Start.prefab
+#	deleted:    The Experiment/Assets/CircuitGame/Prefab/Start.prefab.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Scripts.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Scripts/CircuitRotation.cs
+#	deleted:    The Experiment/Assets/CircuitGame/Scripts/CircuitRotation.cs.meta
+#	deleted:    The Experiment/Assets/CircuitGame/Scripts/LineDetector.cs
+#	deleted:    The Experiment/Assets/CircuitGame/Scripts/LineDetector.cs.meta
+#	deleted:    The Experiment/Assets/Idle.cs
+#	deleted:    The Experiment/Assets/Idle.cs.meta
+#	deleted:    The Experiment/Assets/Materials.meta
+#	deleted:    The Experiment/Assets/Materials/Floor.mat
+#	deleted:    The Experiment/Assets/Materials/Floor.mat.meta
+#	deleted:    The Experiment/Assets/Materials/Gray.mat
+#	deleted:    The Experiment/Assets/Materials/Gray.mat.meta
+#	deleted:    The Experiment/Assets/Materials/MapMat.mat
+#	deleted:    The Experiment/Assets/Materials/MapMat.mat.meta
+#	deleted:    The Experiment/Assets/Materials/StartMat.mat
+#	deleted:    The Experiment/Assets/Materials/StartMat.mat.meta
+#	deleted:    The Experiment/Assets/Materials/Walls.mat
+#	deleted:    The Experiment/Assets/Materials/Walls.mat.meta
+#	deleted:    The Experiment/Assets/Materials/cageRoomTop.mat
+#	deleted:    The Experiment/Assets/Materials/cageRoomTop.mat.meta
+#	deleted:    The Experiment/Assets/Materials/cube.mat
+#	deleted:    The Experiment/Assets/Materials/cube.mat.meta
+#	deleted:    The Experiment/Assets/Models.meta
+#	deleted:    The Experiment/Assets/Models/Environment.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/BottomMat.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/BottomMat.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Legs.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Legs.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Metal.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Metal.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/MetalDish.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/MetalDish.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/MetalRim.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/MetalRim.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Red.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Red.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/TopBlack.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/TopBlack.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/TopMat.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/TopMat.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Whiteboard.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Whiteboard.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/WoodDark.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/WoodDark.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/WoodLight.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/WoodLight.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Yellow.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/Yellow.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/fluid.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/fluid.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/glass.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/glass.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/numbers.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/numbers.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/top.001.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/top.001.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/top.mat
+#	deleted:    The Experiment/Assets/Models/Environment/Materials/top.mat.meta
+#	deleted:    The Experiment/Assets/Models/Environment/beaker.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/beaker.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/bookshelf.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/bookshelf.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/bottle.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/bottle.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/bottle_filled.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/bottle_filled.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/controlButton.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/controlButton.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/desk.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/desk.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/graduated_cylinder1.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/graduated_cylinder1.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/graduated_cylinder2.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/graduated_cylinder2.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/jar.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/jar.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/jar2.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/jar2.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/labCounter.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/labCounter.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/test_tube.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/test_tube.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/test_tube_rack.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/test_tube_rack.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Environment/whiteboard.fbx
+#	deleted:    The Experiment/Assets/Models/Environment/whiteboard.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Materials.meta
+#	deleted:    The Experiment/Assets/Models/Materials/Material.001.mat
+#	deleted:    The Experiment/Assets/Models/Materials/Material.001.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/Material.002.mat
+#	deleted:    The Experiment/Assets/Models/Materials/Material.002.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/Material.003.mat
+#	deleted:    The Experiment/Assets/Models/Materials/Material.003.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/Material.004.mat
+#	deleted:    The Experiment/Assets/Models/Materials/Material.004.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/Material.005.mat
+#	deleted:    The Experiment/Assets/Models/Materials/Material.005.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/black.mat
+#	deleted:    The Experiment/Assets/Models/Materials/black.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/cast.mat
+#	deleted:    The Experiment/Assets/Models/Materials/cast.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/darker parts of gown.mat
+#	deleted:    The Experiment/Assets/Models/Materials/darker parts of gown.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/gown.mat
+#	deleted:    The Experiment/Assets/Models/Materials/gown.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/hair.mat
+#	deleted:    The Experiment/Assets/Models/Materials/hair.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/lighter gown parts.mat
+#	deleted:    The Experiment/Assets/Models/Materials/lighter gown parts.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/lighter reddish skin.mat
+#	deleted:    The Experiment/Assets/Models/Materials/lighter reddish skin.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/lighter_gown_parts.mat
+#	deleted:    The Experiment/Assets/Models/Materials/lighter_gown_parts.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/lighter_reddish_skin.mat
+#	deleted:    The Experiment/Assets/Models/Materials/lighter_reddish_skin.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/reddish skin.mat
+#	deleted:    The Experiment/Assets/Models/Materials/reddish skin.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/reddish_skin.mat
+#	deleted:    The Experiment/Assets/Models/Materials/reddish_skin.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/skin.mat
+#	deleted:    The Experiment/Assets/Models/Materials/skin.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/white parts.mat
+#	deleted:    The Experiment/Assets/Models/Materials/white parts.mat.meta
+#	deleted:    The Experiment/Assets/Models/Materials/white_parts.mat
+#	deleted:    The Experiment/Assets/Models/Materials/white_parts.mat.meta
+#	deleted:    The Experiment/Assets/Models/TeganAnimationController.controller
+#	deleted:    The Experiment/Assets/Models/TeganAnimationController.controller.meta
+#	deleted:    The Experiment/Assets/Models/TeganRigged2.blend
+#	deleted:    The Experiment/Assets/Models/TeganRigged2.blend.meta
+#	deleted:    The Experiment/Assets/Models/TeganRigged2.fbx
+#	deleted:    The Experiment/Assets/Models/TeganRigged2.fbx.meta
+#	deleted:    The Experiment/Assets/Models/Tegan_Rigged_with_walk_idle.fbx
+#	deleted:    The Experiment/Assets/Models/Tegan_Rigged_with_walk_idle.fbx.meta
+#	deleted:    The Experiment/Assets/Models/tolstoy.fbx
+#	deleted:    The Experiment/Assets/Models/tolstoy.fbx.meta
+#	deleted:    The Experiment/Assets/Prefabs.meta
+#	deleted:    The Experiment/Assets/Prefabs/Canvas.prefab
+#	deleted:    The Experiment/Assets/Prefabs/Canvas.prefab.meta
+#	deleted:    The Experiment/Assets/Prefabs/DialogBox.prefab
+#	deleted:    The Experiment/Assets/Prefabs/DialogBox.prefab.meta
+#	deleted:    The Experiment/Assets/Prefabs/Main Camera.prefab
+#	deleted:    The Experiment/Assets/Prefabs/Main Camera.prefab.meta
+#	deleted:    The Experiment/Assets/Prefabs/Player.prefab
+#	deleted:    The Experiment/Assets/Prefabs/Player.prefab.meta
+#	deleted:    The Experiment/Assets/Prefabs/PlayerTestCube.prefab
+#	deleted:    The Experiment/Assets/Prefabs/PlayerTestCube.prefab.meta
+#	deleted:    The Experiment/Assets/Prefabs/Sphere.prefab
+#	deleted:    The Experiment/Assets/Prefabs/Sphere.prefab.meta
+#	deleted:    The Experiment/Assets/Scripts.meta
+#	deleted:    The Experiment/Assets/Scripts/CameraFollow.cs
+#	deleted:    The Experiment/Assets/Scripts/CameraFollow.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/CameraVantage.cs
+#	deleted:    The Experiment/Assets/Scripts/CameraVantage.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/CanvasController.cs
+#	deleted:    The Experiment/Assets/Scripts/CanvasController.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/Dialog.meta
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogBox.cs
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogBox.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogCard.cs
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogCard.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogQueue.cs
+#	deleted:    The Experiment/Assets/Scripts/Dialog/DialogQueue.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/PlayerController.cs
+#	deleted:    The Experiment/Assets/Scripts/PlayerController.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/PlayerMovement.cs
+#	deleted:    The Experiment/Assets/Scripts/PlayerMovement.cs.meta
+#	deleted:    The Experiment/Assets/Scripts/SimpleMovement.cs
+#	deleted:    The Experiment/Assets/Scripts/SimpleMovement.cs.meta
+#	deleted:    The Experiment/Assets/Shaders.meta
+#	deleted:    The Experiment/Assets/Shaders/cel-bumped.shader
+#	deleted:    The Experiment/Assets/Shaders/cel-bumped.shader.meta
+#	deleted:    The Experiment/Assets/Shaders/cel-diffuse.shader
+#	deleted:    The Experiment/Assets/Shaders/cel-diffuse.shader.meta
+#	deleted:    The Experiment/Assets/Shaders/cel-transparent-bumped.shader
+#	deleted:    The Experiment/Assets/Shaders/cel-transparent-bumped.shader.meta
+#	deleted:    The Experiment/Assets/Shaders/cel-transparent-diffuse.shader
+#	deleted:    The Experiment/Assets/Shaders/cel-transparent-diffuse.shader.meta
+#	deleted:    The Experiment/Assets/TeganAnimationController.cs
+#	deleted:    The Experiment/Assets/TeganAnimationController.cs.meta
+#	deleted:    The Experiment/Assets/Textures.meta
+#	deleted:    The Experiment/Assets/Textures/Map.png
+#	deleted:    The Experiment/Assets/Textures/Map.png.meta
+#	deleted:    The Experiment/Assets/Textures/UIButtons - 3:2:15.png
+#	deleted:    The Experiment/Assets/Textures/UIButtons - 3:2:15.png.meta
+#	deleted:    The Experiment/Assets/Textures/cageRoomTop.jpg
+#	deleted:    The Experiment/Assets/Textures/cageRoomTop.jpg.meta
+#	deleted:    The Experiment/Assets/_Scenes.meta
+#	deleted:    The Experiment/Assets/_Scenes/CameraDemo.unity
+#	deleted:    The Experiment/Assets/_Scenes/CameraDemo.unity.meta
+#	deleted:    The Experiment/Assets/_Scenes/LevelGrayBox.unity
+#	deleted:    The Experiment/Assets/_Scenes/LevelGrayBox.unity.meta
+#	deleted:    The Experiment/Assets/_Scenes/PlayerMovementDemo.unity
+#	deleted:    The Experiment/Assets/_Scenes/PlayerMovementDemo.unity.meta
+#	deleted:    The Experiment/ProjectSettings/AudioManager.asset
+#	deleted:    The Experiment/ProjectSettings/ClusterInputManager.asset
+#	deleted:    The Experiment/ProjectSettings/DynamicsManager.asset
+#	deleted:    The Experiment/ProjectSettings/EditorBuildSettings.asset
+#	deleted:    The Experiment/ProjectSettings/EditorSettings.asset
+#	deleted:    The Experiment/ProjectSettings/GraphicsSettings.asset
+#	deleted:    The Experiment/ProjectSettings/InputManager.asset
+#	deleted:    The Experiment/ProjectSettings/NavMeshAreas.asset
+#	deleted:    The Experiment/ProjectSettings/NetworkManager.asset
+#	deleted:    The Experiment/ProjectSettings/Physics2DSettings.asset
+#	deleted:    The Experiment/ProjectSettings/ProjectSettings.asset
+#	deleted:    The Experiment/ProjectSettings/ProjectVersion.txt
+#	deleted:    The Experiment/ProjectSettings/QualitySettings.asset
+#	deleted:    The Experiment/ProjectSettings/TagManager.asset
+#	deleted:    The Experiment/ProjectSettings/TimeManager.asset
+#	deleted:    The Experiment/ProjectSettings/UnityAdsSettings.asset
+#	deleted:    The Experiment/ProjectSettings/UnityConnectSettings.asset
+#
+# Untracked files:
+#	.gitignore
+#	README.md
+#	The Experiment/
+#
+
