@@ -27,8 +27,6 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 
 		backgroundImage.enabled = false;
 		dialogText.enabled = false;
-
-		print(ColorToHex (Color.red));
 	}
 
 	void Update	() {
@@ -40,9 +38,10 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 	}
 
 	public void SetDialogQueue(DialogCard[] cards) {
-		if (cards.Length == 1)
-			currentCard = cards [0];
-		else {
+		// if (cards.Length == 1)
+			//currentCard = cards [0];
+		//else 
+        {
 			// Refactor later for better performance?
 			queue.LoadQueue (cards);
 			currentCard = queue.Next();

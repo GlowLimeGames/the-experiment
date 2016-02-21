@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DialogCard {
+[CreateAssetMenu()]
+public class DialogCard : ScriptableObject {
 	public float textSpeed;
+    [TextArea()]
 	public string dialog;
 	public Color backgroundColor;
 
