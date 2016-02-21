@@ -4,12 +4,16 @@ using System.Collections;
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
 {
-    [Tooltip("Gameobject to follow.")]
+    [Tooltip("Target to follow.")]
     public CameraTarget target;
     
-    [Tooltip("Determines how fast/slow the camera follow the player.")]
+    [Tooltip("Determines how fast/slow the camera follow the target.")]
     [Range(0f, 1f)]
     public float followSpeed;
+
+    [Tooltip("Determines how fast/slow the camera looks towards the target.")]
+    [Range(0f, 1f)]
+    public float angleSpeed;
 
     [Tooltip("Use fixed update? (Important for syncing with physics)")]
     public bool useFixedUpdate;
@@ -29,7 +33,7 @@ public class CameraFollow : MonoBehaviour
         Vector3 position = target.GetTargetCameraPosition();
 
         // Set look direction towards the player
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - this.transform.position), followSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - position), angleSpeed);
 
         // Move towards target transform
         transform.position = Vector3.Lerp(transform.position, position, followSpeed);
