@@ -5,7 +5,7 @@ using System.Collections;
 public class CameraFollow : MonoBehaviour
 {
     [Tooltip("Gameobject to follow.")]
-    public GameObject target;
+    public CameraTarget target;
     
     [Tooltip("Determines how fast/slow the camera follow the player.")]
     [Range(0f, 1f)]
@@ -13,12 +13,6 @@ public class CameraFollow : MonoBehaviour
 
     [Tooltip("Use fixed update? (Important for syncing with physics)")]
     public bool useFixedUpdate;
-
-    // The position the camera aims to be at if in room
-    private Vector3 targetPosition;
-
-    // How many vantage areas we are in
-    private int vantageAreaCount = 0;
 
     [Tooltip("Spherical coordinates for the camera to start at.")]
     public float theta, phi, rho;
@@ -30,52 +24,12 @@ public class CameraFollow : MonoBehaviour
     [Range(0, Mathf.PI / 2)]
     public float minTheta = Mathf.PI / 2, maxTheta = Mathf.PI / 4;
 
-    void Start()
-    {
-        // Listen to when the vantage areas are entered/exited
-        foreach (var vantage in GameObject.FindObjectsOfType<CameraVantage>())
-        {
-            vantage.OnVantageAreaEntered += VantageAreaEntered;
-            vantage.OnVantageAreaExited += VantageAreaExited;
-        }
-    }
-
-    void VantageAreaEntered(CameraVantage vantage, Collider other)
-    {
-        // This assumes the collider used by the player is on the same gameobject we're following which may have to change
-        if (other.gameObject == target)
-        {
-            vantageAreaCount++;
-            targetPosition = vantage.cameraPosition.position;
-        }
-    }
-
-    void VantageAreaExited(CameraVantage vantage, Collider other)
-    {
-        // Same here ^
-        if (other.gameObject == target)
-        {
-            vantageAreaCount--;
-        }
-    }
-
     void UpdatePosition()
     {
-        Vector3 position;
-
-        // Are we outside all vantage areas?
-        if (vantageAreaCount == 0)
-        {
-            // If so, set the target position to follow the player
-            position = GetTargetPosition();
-        }
-        else
-        {
-            position = targetPosition - (target.transform.position - targetPosition).normalized * rho;
-        }
+        Vector3 position = target.GetTargetCameraPosition();
 
         // Set look direction towards the player
-        transform.rotation = Quaternion.LookRotation(target.transform.position - this.transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - this.transform.position), followSpeed);
 
         // Move towards target transform
         transform.position = Vector3.Lerp(transform.position, position, followSpeed);
@@ -84,13 +38,12 @@ public class CameraFollow : MonoBehaviour
     void Update()
     {
         // Zoom in/out
-        rho = Mathf.Clamp(rho + Input.mouseScrollDelta.y, minZoom, maxZoom);
-        theta = Mathf.Lerp(minTheta, maxTheta, (rho - minZoom) / (maxZoom - minZoom));
-
+        target.AdjustRho(Input.mouseScrollDelta.y);
+        
         if (Input.GetKey(KeyCode.Q))
-            phi -= Time.deltaTime;
+            target.AdjustPhi(-Time.deltaTime);
         if (Input.GetKey(KeyCode.E))
-            phi += Time.deltaTime;
+            target.AdjustPhi(Time.deltaTime);
 
         if (!useFixedUpdate) UpdatePosition();   
     }
@@ -98,13 +51,5 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         if (useFixedUpdate) UpdatePosition();   
-    }
-
-    Vector3 GetTargetPosition()
-    {
-        float x = rho * Mathf.Sin(theta) * Mathf.Cos(phi);
-        float y = rho * Mathf.Cos(theta);
-        float z = rho * Mathf.Sin(theta) * Mathf.Sin(phi);
-        return new Vector3(x, y, z) + target.transform.position;
     }
 }

@@ -7,8 +7,8 @@ public class StartRoomScript : MonoBehaviour
     public DialogCard[] TolstoyIntroSpeech;
     public float grayscaleFadeTime;
 
-    public GameObject TolstoyFocus;
-    public GameObject TeaganFocus;
+    public CameraTarget TolstoyFocus;
+    public CameraTarget TeaganFocus;
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
