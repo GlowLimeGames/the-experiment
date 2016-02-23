@@ -6,10 +6,19 @@ ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: cage
+    100004: cage.001
     400000: //RootNode
+    400002: cage
+    400004: cage.001
     2300000: //RootNode
+    2300002: cage
+    2300004: cage.001
     3300000: //RootNode
+    3300002: cage
+    3300004: cage.001
     4300000: cage
+    4300002: cage.001
   materials:
     importMaterials: 1
     materialName: 0
