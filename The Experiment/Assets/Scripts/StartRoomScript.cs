@@ -4,10 +4,10 @@ using System.Collections;
 // Controls events in the starting room
 public class StartRoomScript : MonoBehaviour 
 {
-    public DialogPiece[] TolstoyDialog;
+    public DialogCard[] TolstoyDialog;
     public CameraTarget TolstoyFocus;
 
-    public DialogPiece[] TeaganDialog;
+    public DialogCard[] TeaganDialog;
     public CameraTarget TeaganSpeachFocus;
     public CameraTarget TeaganControlFocus;
 
@@ -35,7 +35,7 @@ public class StartRoomScript : MonoBehaviour
         while(tolstoyIndex < TolstoyDialog.Length)
         {
             cameraControl.target = TolstoyFocus;
-            dialog.SetDialogQueue(TolstoyDialog[tolstoyIndex].dialogCards);
+            dialog.SetDialogQueue(new DialogCard[] { TolstoyDialog[tolstoyIndex] });
             dialog.DisplayNextCard();
             tolstoyIndex++;
 
@@ -45,7 +45,7 @@ public class StartRoomScript : MonoBehaviour
             if (teaganIndex < TeaganDialog.Length)
             {
                 cameraControl.target = TeaganSpeachFocus;
-                dialog.SetDialogQueue(TeaganDialog[teaganIndex].dialogCards);
+                dialog.SetDialogQueue(new DialogCard[] { TeaganDialog[teaganIndex] });
                 dialog.DisplayNextCard();
                 teaganIndex++;
 

@@ -20,7 +20,7 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 	private bool allTextDisplayed = false;
 	private bool colorTagOpen = false;
 
-	void Start () {
+	void Awake () {
 		queue = new DialogQueue ();
 		backgroundImage = GetComponent<Image> ();
 		dialogText = GetComponentInChildren<Text> ();
@@ -43,6 +43,7 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 		//else 
         {
 			// Refactor later for better performance?
+            if (queue == null) Debug.LogError("Why is this null?");
 			queue.LoadQueue (cards);
 			currentCard = queue.Next();
 		}

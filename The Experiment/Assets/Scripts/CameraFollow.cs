@@ -32,6 +32,9 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 position = target.GetTargetCameraPosition();
 
+        float angleSpeed = target.setUpdateSpeed ? target.cameraAngleUpdateSpeed : this.angleSpeed;
+        float followSpeed = target.setUpdateSpeed ? target.cameraPositionUpdateSpeed : this.followSpeed;
+
         // Set look direction towards the player
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - position), angleSpeed);
 

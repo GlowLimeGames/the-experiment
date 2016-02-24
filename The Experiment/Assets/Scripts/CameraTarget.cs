@@ -13,6 +13,12 @@ public class CameraTarget : MonoBehaviour
     [Tooltip("Whether we can manipulate the camera while looking at this target.")]
     public bool controllable;
 
+    [Tooltip("Whether or not to use this target's update speed instead of camera defaults.")]
+    public bool setUpdateSpeed;
+
+    [Tooltip("How fast the camera updates towards the target.")]
+    public float cameraPositionUpdateSpeed, cameraAngleUpdateSpeed;
+
     public Vector3 GetTargetCameraPosition()
     {
         if (followBehind) phi = Mathf.Atan2(this.transform.forward.z, this.transform.forward.x) + Mathf.PI;
