@@ -18,9 +18,6 @@ public class CameraFollow : MonoBehaviour
     [Tooltip("Use fixed update? (Important for syncing with physics)")]
     public bool useFixedUpdate;
 
-    [Tooltip("Spherical coordinates for the camera to start at.")]
-    public float theta, phi, rho;
-
     [Tooltip("The how much we can zoom in and out.")]
     public float minZoom, maxZoom;
 
@@ -58,5 +55,12 @@ public class CameraFollow : MonoBehaviour
     void FixedUpdate()
     {
         if (useFixedUpdate) UpdatePosition();   
+    }
+
+    public void JumpToTarget()
+    {
+        Vector3 position = target.GetTargetCameraPosition();
+        transform.rotation = Quaternion.LookRotation(target.transform.position - position);
+        transform.position = position;
     }
 }

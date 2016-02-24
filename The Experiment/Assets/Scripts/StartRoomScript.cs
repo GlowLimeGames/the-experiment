@@ -25,11 +25,16 @@ public class StartRoomScript : MonoBehaviour
         // These are probably going to be uniqe so grab them this way
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
+
+
         StartCoroutine(StartRoomCoroutine());
 	}
 
     IEnumerator StartRoomCoroutine()
     {
+        cameraControl.target = TolstoyFocus;
+        cameraControl.JumpToTarget();
+
         int tolstoyIndex = 0;
         int teaganIndex = 0;
         while(tolstoyIndex < TolstoyDialog.Length)
