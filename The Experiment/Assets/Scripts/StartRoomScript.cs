@@ -13,8 +13,13 @@ public class StartRoomScript : MonoBehaviour
 
     public Animator cageAnimator;
 
+    public Camera inspectionCamera;
+    public DialogCard ratDialog;
+
     private CameraFollow cameraControl;
     private DialogBox dialog;
+    private Grayscale cameraGrayscale;
+    private KeyRat keyRat;
 	
 	void Start () 
     {
@@ -25,18 +30,21 @@ public class StartRoomScript : MonoBehaviour
         // These are probably going to be uniqe so grab them this way
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
-
+        cameraGrayscale = Object.FindObjectOfType<Grayscale>();
+        keyRat = Object.FindObjectOfType<KeyRat>();
 
         StartCoroutine(StartRoomCoroutine());
 	}
 
     IEnumerator StartRoomCoroutine()
     {
+        inspectionCamera.enabled = false;
+        cameraGrayscale.enabled = false;
         cameraControl.target = TolstoyFocus;
         cameraControl.JumpToTarget();
 
-        int tolstoyIndex = 0;
-        int teaganIndex = 0;
+        int tolstoyIndex = TolstoyDialog.Length - 1;
+        int teaganIndex = TeaganDialog.Length - 1;
         while(tolstoyIndex < TolstoyDialog.Length)
         {
             cameraControl.target = TolstoyFocus;
@@ -59,7 +67,22 @@ public class StartRoomScript : MonoBehaviour
             }
         }
 
-        cageAnimator.SetBool("Open", true);
         cameraControl.target = TeaganControlFocus;
+
+        while (!keyRat.Clicked)
+            yield return null;
+
+        inspectionCamera.enabled = true;
+        cameraGrayscale.enabled = true;
+        cameraGrayscale.effectAmount = 1;
+        dialog.SetDialogQueue(new DialogCard[] { ratDialog });
+        dialog.DisplayNextCard();
+
+        while (dialog.IsDisplaying())
+            yield return null;
+
+        inspectionCamera.enabled = false;
+        cameraGrayscale.enabled = false;
+        cageAnimator.SetBool("Open", true);
     }
 }
