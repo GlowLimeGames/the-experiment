@@ -4,10 +4,13 @@ using System.Collections;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
+[RequireComponent(typeof(AudioSource))]
 public class DialogBox : MonoBehaviour, IEventSystemHandler {
 	[Tooltip("xFaster the text displays at when F is held")]
 	public float textSpeedUp = 2;
 	public Color itemTextColor;
+
+    private AudioSource audio;
 
 	private DialogQueue queue;
 	private DialogCard currentCard;
@@ -24,6 +27,7 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 		queue = new DialogQueue ();
 		backgroundImage = GetComponent<Image> ();
 		dialogText = GetComponentInChildren<Text> ();
+        audio = GetComponent<AudioSource>();
 
 		backgroundImage.enabled = false;
 		dialogText.enabled = false;
@@ -70,7 +74,8 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 		return backgroundImage.enabled;
 	}
 
-	void CleanDialogGUI() {
+	public void CleanDialogGUI() {
+        audio.Stop();
 		allTextDisplayed = false;
 		colorTagOpen = false;
 		backgroundImage.enabled = false;
@@ -87,9 +92,12 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 		return hex;
 	}
 
-	IEnumerator TranscribeDialog(DialogCard card) {
+	IEnumerator TranscribeDialog(DialogCard card)
+    {
+        dialogText.color = card.textColor;
+        audio.Play();
 		
-	while (charactersShowing <= card.dialog.Length - 1) {
+	    while (charactersShowing <= card.dialog.Length - 1) {
 			float speedMultiplier = 1f;
 			int charactersInLastFrame = Mathf.FloorToInt (charactersShowing);
 			string textToDisplay = "";
@@ -131,9 +139,10 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 
 			yield return null;
 		}
+
 		dialogText.text = card.dialog;
 		allTextDisplayed = true;
 		charactersShowing = 0;
+        audio.Stop();
 	}
-
 }

@@ -60,7 +60,7 @@ CGPROGRAM
 #pragma fragment frag
  
 half4 frag(v2f i) :COLOR {
-	return half4(1, 0, 0, 1); //i.color;
+	return i.color;
 }
 ENDCG
 		}

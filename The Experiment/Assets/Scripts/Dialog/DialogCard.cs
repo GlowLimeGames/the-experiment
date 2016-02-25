@@ -7,6 +7,7 @@ public class DialogCard : ScriptableObject {
     [TextArea()]
 	public string dialog;
 	public Color backgroundColor;
+    public Color textColor;
 
 	/// <param name="textSpeed">Characters per second.</param>
 	public DialogCard(float textSpeed, string dialog) {

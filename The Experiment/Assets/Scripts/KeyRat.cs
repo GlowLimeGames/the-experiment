@@ -9,7 +9,7 @@ public class KeyRat : MonoBehaviour
 
     void Start()
     {
-        outlineRenderer.enabled = true;
+        outlineRenderer.enabled = false;
     }
 
     void OnMouseOver()
