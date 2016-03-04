@@ -7,10 +7,10 @@ public class PlayerController : MonoBehaviour {
 	public DialogBox dialogBox;
 
 	private bool inRangeInteract = false;
-	private PlayerMovement p_Movement;
+	private PlayerMovementWASD p_Movement;
 	// Use this for initialization
 	void Start () {
-		p_Movement = GetComponent<PlayerMovement> ();
+		p_Movement = GetComponent<PlayerMovementWASD> ();
 
 	}
 
