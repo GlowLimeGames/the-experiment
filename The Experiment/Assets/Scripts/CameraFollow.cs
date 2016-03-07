@@ -25,6 +25,9 @@ public class CameraFollow : MonoBehaviour
     [Range(0, Mathf.PI / 2)]
     public float minTheta = Mathf.PI / 2, maxTheta = Mathf.PI / 4;
 
+    [Tooltip("How sensitive the mouse is (range about 0-1).")]
+    public Vector2 MouseSensitivity;
+    
     void UpdatePosition()
     {
         Vector3 position = target.GetTargetCameraPosition();
@@ -33,7 +36,14 @@ public class CameraFollow : MonoBehaviour
         float followSpeed = target.setUpdateSpeed ? target.cameraPositionUpdateSpeed : this.followSpeed;
 
         // Set look direction towards the player
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - position), angleSpeed);
+        if (target.noLookLerp)
+        {
+            transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - position), angleSpeed);
+        }
 
         // Move towards target transform
         transform.position = Vector3.Lerp(transform.position, position, followSpeed);
@@ -41,13 +51,10 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
-        // Zoom in/out
+        // Mouse controls
         target.AdjustRho(Input.mouseScrollDelta.y);
-        
-        if (Input.GetKey(KeyCode.Q))
-            target.AdjustPhi(-Time.deltaTime);
-        if (Input.GetKey(KeyCode.E))
-            target.AdjustPhi(Time.deltaTime);
+        target.AdjustPhi(Input.GetAxis("Mouse X") * MouseSensitivity.x * -1);
+        target.AdjustTheta(Input.GetAxis("Mouse Y") * MouseSensitivity.y);
 
         if (!useFixedUpdate) UpdatePosition();   
     }
