@@ -45,6 +45,19 @@ public class CameraFollow : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.transform.position - position), angleSpeed);
         }
 
+        // Raycast against environment to prevent camera from clipping through it
+        {
+            var delta = position - target.transform.position;
+            float distance = delta.magnitude;
+            Ray r = new Ray(target.transform.position, delta);
+            RaycastHit hit;
+            if (Physics.Raycast(r, out hit, distance))
+            {
+                // Back it away slightly
+                position = r.GetPoint(hit.distance - 0.25f);
+            }
+        }
+
         // Move towards target transform
         transform.position = Vector3.Lerp(transform.position, position, followSpeed);
     }
