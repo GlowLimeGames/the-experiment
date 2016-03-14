@@ -10,11 +10,6 @@ public class MovableNode : ControlNode
 	private Socket potentialSocket;
 	//private 
 
-	/*public override void Activate() {
-		int butts = 1;
-		return;
-	}*/
-
 	public void Reset() {
 		isBeingDragged = false;
 		potentialSocket = null;
