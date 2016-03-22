@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour {
 				if (hit.transform.CompareTag ("Usable")) {
 					inRangeInteract = true;
 					if (interact) {
-						print ("Hit");
 						p_Movement.StopMovement ();
-						hit.transform.gameObject.SendMessage ("Use", SendMessageOptions.DontRequireReceiver);
+						// Player rotation is sent to viewable object to orient it correctly
+						hit.transform.gameObject.SendMessage ("Use", transform.localEulerAngles, SendMessageOptions.DontRequireReceiver);
 						// Items with usable tag will have a Use function
 					}
 				}

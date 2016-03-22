@@ -8,12 +8,14 @@ public class SmallInteractionObject : MonoBehaviour
 	public Vector3 interactionScale;
 	public DialogCard objectDialog;
 	public MeshRenderer meshRenderer;
-	public MeshFilter meshFilter;
+	public Mesh mesh { get; private set; }
+	public Material[] rendererMaterials;
 
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
 
-	public InteractionCameraView interactionCameraObject;
+	InteractionCameraView interactionCameraView;
+	GameObject player;
 
 	public bool Clicked { get; private set; }
 
@@ -21,10 +23,20 @@ public class SmallInteractionObject : MonoBehaviour
 	{
 		//outlineRenderer.enabled = false;
 		meshRenderer = GetComponent<MeshRenderer> ();
-		meshFilter = GetComponent<MeshFilter> ();
+		mesh = GetComponent<MeshFilter> ().mesh;
+		rendererMaterials = meshRenderer.materials;
+
 		interactionScale = transform.localScale;
 		interactionRotation = transform.localEulerAngles;
-		interactionCameraObject.AddToDictionary (this);
+		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
+
+		player = GameObject.FindGameObjectWithTag ("Player");
+
+
+		if (player == null)
+			Debug.LogError ("Player not found; set its tag to Player");
+
+		interactionCameraView.AddToDictionary (this);
 	}
 
 	/*void OnMouseOver()
@@ -41,16 +53,13 @@ public class SmallInteractionObject : MonoBehaviour
 
 	void OnMouseDown()
 	{
-		if (isUseable) {
-			interactionCameraObject.DisplayObject (name);
+		if (isUseable && !interactionCameraView.IsDisplaying()) {
+			print ("Mouse click registered");
+			// Add stopped movement
+			interactionCameraView.DisplayObject (name, player.transform.localEulerAngles, rendererMaterials);
 			Clicked = true;
-		}
-	}
-
-	public void Use () {
-		if (isUseable) {
-			isUseable = false;
-			StartCoroutine (interactionCameraObject.DisplayObject (name));
+			if (disableAfterUse)
+				isUseable = false;
 		}
 	}
 }
