@@ -3,28 +3,31 @@ using System.Collections;
 
 public class SmallInteractionObject : MonoBehaviour 
 {
-	public Renderer outlineRenderer;
+	//public Renderer outlineRenderer;
 	public Vector3 interactionRotation;
+	public Vector3 interactionScale;
 	public DialogCard objectDialog;
-	public Mesh mesh;
+	public MeshRenderer meshRenderer;
 	public MeshFilter meshFilter;
 
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
 
-	public InteractionCamera interactionCamera;
+	public InteractionCameraView interactionCameraObject;
 
 	public bool Clicked { get; private set; }
 
 	void Start()
 	{
-		outlineRenderer.enabled = false;
-		mesh = GetComponent<Mesh> ();
+		//outlineRenderer.enabled = false;
+		meshRenderer = GetComponent<MeshRenderer> ();
 		meshFilter = GetComponent<MeshFilter> ();
-		interactionCamera.AddToDictionary (this, interactionRotation);
+		interactionScale = transform.localScale;
+		interactionRotation = transform.localEulerAngles;
+		interactionCameraObject.AddToDictionary (this);
 	}
 
-	void OnMouseOver()
+	/*void OnMouseOver()
 	{
 		if (isUseable)
 			outlineRenderer.enabled = true;
@@ -34,13 +37,20 @@ public class SmallInteractionObject : MonoBehaviour
 	{
 		if (isUseable)
 			outlineRenderer.enabled = false;
-	}
+	}*/
 
 	void OnMouseDown()
 	{
 		if (isUseable) {
-			interactionCamera.DisplayObject (name);
+			interactionCameraObject.DisplayObject (name);
 			Clicked = true;
+		}
+	}
+
+	public void Use () {
+		if (isUseable) {
+			isUseable = false;
+			StartCoroutine (interactionCameraObject.DisplayObject (name));
 		}
 	}
 }
