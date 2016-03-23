@@ -30,9 +30,9 @@ public class PlayerController : MonoBehaviour {
 				if (hit.transform.CompareTag ("Usable")) {
 					inRangeInteract = true;
 					if (interact) {
-						p_Movement.StopMovement ();
+						//p_Movement.StopMovement ();
 						// Player rotation is sent to viewable object to orient it correctly
-						hit.transform.gameObject.SendMessage ("Use", transform.localEulerAngles, SendMessageOptions.DontRequireReceiver);
+						//hit.transform.gameObject.SendMessage ("Use", transform.localEulerAngles, SendMessageOptions.DontRequireReceiver);
 						// Items with usable tag will have a Use function
 					}
 				}
@@ -46,7 +46,6 @@ public class PlayerController : MonoBehaviour {
 					CanvasController.Instance.DisplayInteractButton (true);
 				} else {
 					CanvasController.Instance.DisplayInteractButton (false);
-				}
 			}
 		}
 	}

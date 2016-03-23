@@ -10,8 +10,8 @@ public class InteractionCameraView : MonoBehaviour {
 	private MeshFilter currentMeshFilter;
 	private MeshRenderer currentMeshRenderer;
 	private DialogBox dialog;
-	public Grayscale cameraGrayscale;
-	public Camera camera;
+	Grayscale cameraGrayscale;
+	Camera camera;
 
 	void Start () 
 	{
@@ -19,6 +19,7 @@ public class InteractionCameraView : MonoBehaviour {
 		//camera = GetComponent<Camera>();
 		dialog = Object.FindObjectOfType<DialogBox>();
 		cameraGrayscale = Object.FindObjectOfType<Grayscale>();
+		camera = GameObject.FindGameObjectWithTag ("InteractionCamera").GetComponent<Camera>();
 
 		currentMeshFilter = GetComponent<MeshFilter> ();
 		currentMeshRenderer = GetComponent<MeshRenderer> ();
@@ -26,7 +27,7 @@ public class InteractionCameraView : MonoBehaviour {
 		objectDictionary = new Dictionary<string, SmallInteractionObject> ();
 		camera.enabled = false;
 
-		currentMeshRenderer.materials = new Material[4];
+		// currentMeshRenderer.materials = new Material[4];
 	}
 	public void AddToDictionary (SmallInteractionObject newObject) {
 		// Interaction objects MUST have a unique name!!!
