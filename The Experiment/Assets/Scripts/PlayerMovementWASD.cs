@@ -24,6 +24,9 @@ public class PlayerMovementWASD : MonoBehaviour {
 		transform.Rotate (Vector3.up * horizontal * turnSpeed);
 
 		rb.MovePosition (transform.position + transform.forward * moveSpeed * vertical * Time.deltaTime);
+	}
 
+	public void StopMovement() {
+		anim.SetBool("Moving", false);
 	}
 }
