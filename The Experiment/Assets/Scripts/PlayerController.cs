@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		if (!dialogBox.IsDisplaying ()) {
 			// read inputs
 			float h = Input.GetAxis ("Horizontal");
 			float v = Input.GetAxis ("Vertical");
