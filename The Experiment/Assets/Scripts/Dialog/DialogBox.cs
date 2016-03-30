@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
@@ -41,16 +42,26 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 		}
 	}
 
+	// For singular cards
+	public void SetDialogQueue(DialogCard card) {
+		// Refactor later for better performance?
+		if (queue == null) Debug.LogError("Why is this null?");
+
+		queue.LoadQueue (SplitCard(card));
+		currentCard = queue.Next();
+	}
+
 	public void SetDialogQueue(DialogCard[] cards) {
-		// if (cards.Length == 1)
-			//currentCard = cards [0];
-		//else 
-        {
 			// Refactor later for better performance?
             if (queue == null) Debug.LogError("Why is this null?");
-			queue.LoadQueue (cards);
-			currentCard = queue.Next();
+		// Time for terrible hacky code.
+		// For each card, we divide the card at its return characters, and add a list of all these expanded cards to the queue
+		List<DialogCard> expandedCards = new List<DialogCard>();
+		foreach (DialogCard card in cards) {
+			expandedCards.AddRange(SplitCard (card));
 		}
+		queue.LoadQueue (expandedCards.ToArray());
+			currentCard = queue.Next();
 	}
 
 	public void DisplayNextCard() {
@@ -90,6 +101,20 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler {
 	{
 		string hex = color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
 		return hex;
+	}
+
+	private DialogCard[] SplitCard(DialogCard card)
+	{
+		string[] parts = card.dialog.Split('\n');
+		DialogCard[] cards = new DialogCard[parts.Length];
+
+		for (int i = 0; i < parts.Length; i++)
+		{
+			cards[i] = new DialogCard(card.textSpeed, parts[i]);
+			cards[i].textColor = card.textColor;
+			cards[i].backgroundColor = card.backgroundColor;
+		}
+		return cards;
 	}
 
 	IEnumerator TranscribeDialog(DialogCard card)
