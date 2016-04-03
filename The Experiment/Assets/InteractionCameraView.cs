@@ -7,27 +7,27 @@ using System.Collections.Generic;
 public class InteractionCameraView : MonoBehaviour {
 	public Dictionary<string, SmallInteractionObject> objectDictionary;
 
-	private MeshFilter currentMeshFilter;
-	private MeshRenderer currentMeshRenderer;
+	private GameObject viewGameObject;
 	private DialogBox dialog;
+	private Vector3 defaultPosition;
 	Grayscale cameraGrayscale;
 	Camera camera;
 
 	void Awake () 
 	{
 		// These are probably going to be unique so grab them this way
-		//camera = GetComponent<Camera>();
+		viewGameObject = GameObject.Find("ViewObject");
+		if (viewGameObject == null)
+			Debug.LogError ("ViewObject not found!");
+		
 		dialog = Object.FindObjectOfType<DialogBox>();
 		cameraGrayscale = Object.FindObjectOfType<Grayscale>();
 		camera = GameObject.FindGameObjectWithTag ("InteractionCamera").GetComponent<Camera>();
 
-		currentMeshFilter = GetComponent<MeshFilter> ();
-		currentMeshRenderer = GetComponent<MeshRenderer> ();
+		defaultPosition = viewGameObject.transform.localPosition;
 
 		objectDictionary = new Dictionary<string, SmallInteractionObject> ();
 		camera.enabled = false;
-
-		// currentMeshRenderer.materials = new Material[4];
 	}
 	public void AddToDictionary (SmallInteractionObject newObject) {
 		// Interaction objects MUST have a unique name!!!
@@ -44,22 +44,21 @@ public class InteractionCameraView : MonoBehaviour {
 		return camera.enabled;
 	}
 
-	public void DisplayObject (string key, Vector3 playerEulers, Material[] materials) {
-		currentMeshFilter.mesh.Clear ();
-		currentMeshRenderer.materials = new Material[materials.Length];
+	public void DisplayObject (string key, Vector3 playerEulers) {
 
 		SmallInteractionObject newDisplayObject = objectDictionary [key];
-		currentMeshFilter.mesh = newDisplayObject.mesh;
-		currentMeshRenderer = newDisplayObject.meshRenderer;
-		currentMeshRenderer.materials = materials;
 
-		transform.localEulerAngles = newDisplayObject.interactionRotation - playerEulers;
-		transform.localScale = newDisplayObject.interactionScale;
+		Destroy (viewGameObject);
 
+		viewGameObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
+			defaultPosition, 
+			Quaternion.Euler(newDisplayObject.interactionObject.transform.localEulerAngles - playerEulers));
+		
 		camera.enabled = true;
 		cameraGrayscale.enabled = true;
 		cameraGrayscale.effectAmount = 1;
-		dialog.SetDialogQueue (newDisplayObject.objectDialog);
+		if (newDisplayObject.objectDialog != null)
+			dialog.SetDialogQueue (newDisplayObject.objectDialog);
 		dialog.DisplayNextCard ();
 
 		StartCoroutine (CloseInteractionCamera ());

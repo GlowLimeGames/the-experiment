@@ -7,9 +7,7 @@ public class SmallInteractionObject : MonoBehaviour
 	public Vector3 interactionRotation;
 	public Vector3 interactionScale;
 	public DialogCard objectDialog;
-	public MeshRenderer meshRenderer;
-	public Mesh mesh { get; private set; }
-	public Material[] rendererMaterials;
+	public GameObject interactionObject;
 
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
@@ -22,12 +20,10 @@ public class SmallInteractionObject : MonoBehaviour
 	void Start()
 	{
 		//outlineRenderer.enabled = false;
-		meshRenderer = GetComponent<MeshRenderer> ();
-		mesh = GetComponent<MeshFilter> ().mesh;
-		rendererMaterials = meshRenderer.materials;
 
 		interactionScale = transform.localScale;
 		interactionRotation = transform.localEulerAngles;
+		interactionObject = gameObject;
 		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
 
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -56,7 +52,7 @@ public class SmallInteractionObject : MonoBehaviour
 		if (isUseable && !interactionCameraView.IsDisplaying()) {
 			print ("Mouse click registered");
 			// Add stopped movement
-			interactionCameraView.DisplayObject (name, player.transform.localEulerAngles, rendererMaterials);
+			interactionCameraView.DisplayObject (name, player.transform.localEulerAngles);
 			Clicked = true;
 			if (disableAfterUse)
 				isUseable = false;
