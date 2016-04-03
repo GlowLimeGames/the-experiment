@@ -23,7 +23,7 @@ public class StartRoomScript : MonoBehaviour
     private CameraFollow cameraControl;
     private DialogBox dialog;
     private Grayscale cameraGrayscale;
-    private KeyRat keyRat;
+    private SmallInteractionObject keyRat;
 	
 	void Start () 
     {
@@ -35,7 +35,7 @@ public class StartRoomScript : MonoBehaviour
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
         cameraGrayscale = Object.FindObjectOfType<Grayscale>();
-        keyRat = Object.FindObjectOfType<KeyRat>();
+        keyRat = Object.FindObjectOfType<SmallInteractionObject>();
 
         StartCoroutine(StartRoomCoroutine());
 	}
@@ -98,17 +98,19 @@ public class StartRoomScript : MonoBehaviour
         while (!keyRat.Clicked)
             yield return null;
 
+        /*
         inspectionCamera.enabled = true;
         cameraGrayscale.enabled = true;
         cameraGrayscale.effectAmount = 1;
         dialog.SetDialogQueue(SplitCard(ratDialog));
         dialog.DisplayNextCard();
+        */
 
         while (dialog.IsDisplaying())
             yield return null;
 
-        inspectionCamera.enabled = false;
-        cameraGrayscale.enabled = false;
+        // inspectionCamera.enabled = false;
+        // cameraGrayscale.enabled = false;
         cageAnimator.SetBool("Open", true);
 
         cameraControl.target = TeaganControlFocus;

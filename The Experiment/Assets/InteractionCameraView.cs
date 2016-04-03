@@ -7,24 +7,27 @@ using System.Collections.Generic;
 public class InteractionCameraView : MonoBehaviour {
 	public Dictionary<string, SmallInteractionObject> objectDictionary;
 
-	private GameObject viewGameObject;
+	private GameObject viewObject;
 	private DialogBox dialog;
 	private Vector3 defaultPosition;
 	Grayscale cameraGrayscale;
 	Camera camera;
 
-	void Awake () 
+	public GameObject[] messageTarget;
+	public string message;
+
+	void Start () 
 	{
 		// These are probably going to be unique so grab them this way
-		viewGameObject = GameObject.Find("ViewObject");
-		if (viewGameObject == null)
+		viewObject = GameObject.Find("ViewObject");
+		if (viewObject == null)
 			Debug.LogError ("ViewObject not found!");
 		
 		dialog = Object.FindObjectOfType<DialogBox>();
 		cameraGrayscale = Object.FindObjectOfType<Grayscale>();
 		camera = GameObject.FindGameObjectWithTag ("InteractionCamera").GetComponent<Camera>();
 
-		defaultPosition = viewGameObject.transform.localPosition;
+		defaultPosition = viewObject.transform.localPosition;
 
 		objectDictionary = new Dictionary<string, SmallInteractionObject> ();
 		camera.enabled = false;
@@ -48,9 +51,9 @@ public class InteractionCameraView : MonoBehaviour {
 
 		SmallInteractionObject newDisplayObject = objectDictionary [key];
 
-		Destroy (viewGameObject);
+		Destroy (viewObject);
 
-		viewGameObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
+		viewObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
 			defaultPosition, 
 			Quaternion.Euler(newDisplayObject.interactionObject.transform.localEulerAngles - playerEulers));
 		
@@ -69,5 +72,11 @@ public class InteractionCameraView : MonoBehaviour {
 		// Else...
 		camera.enabled = false;
 		cameraGrayscale.enabled = false;
+		// Run world behaviors resulting from interaction
+		if (messageTarget.Length > 0) {
+			foreach (GameObject target in messageTarget) {
+				target.SendMessage ("RunBehavior()");
+			}
+		}
 	}
 }
