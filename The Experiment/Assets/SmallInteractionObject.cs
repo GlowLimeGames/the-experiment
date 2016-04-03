@@ -7,11 +7,12 @@ public class SmallInteractionObject : MonoBehaviour
 	public Vector3 interactionRotation;
 	public Vector3 interactionScale;
 	public DialogCard objectDialog;
-	public GameObject interactionObject;
+	public MeshRenderer outlineRenderer;
 
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
 
+	public GameObject interactionObject { get; private set;}
 	InteractionCameraView interactionCameraView;
 	GameObject player;
 
@@ -19,10 +20,9 @@ public class SmallInteractionObject : MonoBehaviour
 
 	void Start()
 	{
-		//outlineRenderer.enabled = false;
+		outlineRenderer.enabled = false;
 
 		interactionScale = transform.localScale;
-		interactionRotation = transform.localEulerAngles;
 		interactionObject = gameObject;
 		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
 
@@ -35,17 +35,17 @@ public class SmallInteractionObject : MonoBehaviour
 		interactionCameraView.AddToDictionary (this);
 	}
 
-	/*void OnMouseOver()
+	void OnMouseOver()
 	{
-		if (isUseable)
+		if (isUseable && outlineRenderer != null)
 			outlineRenderer.enabled = true;
 	}
 
 	void OnMouseExit()
 	{
-		if (isUseable)
+		if (isUseable && outlineRenderer != null)
 			outlineRenderer.enabled = false;
-	}*/
+	}
 
 	void OnMouseDown()
 	{
