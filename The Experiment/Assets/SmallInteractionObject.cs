@@ -11,6 +11,8 @@ public class SmallInteractionObject : MonoBehaviour
     // The objects that will recieve a RunBehavior message after interaction
 	public GameObject[] interactionObjects;
 
+	public MeshRenderer outlineRenderer;
+
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
 
@@ -21,10 +23,11 @@ public class SmallInteractionObject : MonoBehaviour
 
 	void Start()
 	{
-		//outlineRenderer.enabled = false;
+		outlineRenderer.enabled = false;
 
 		interactionScale = transform.localScale;
 		interactionRotation = transform.localEulerAngles;
+
 		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
 
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -36,17 +39,17 @@ public class SmallInteractionObject : MonoBehaviour
 		interactionCameraView.AddToDictionary (this);
 	}
 
-	/*void OnMouseOver()
+	void OnMouseOver()
 	{
-		if (isUseable)
+		if (isUseable && outlineRenderer != null)
 			outlineRenderer.enabled = true;
 	}
 
 	void OnMouseExit()
 	{
-		if (isUseable)
+		if (isUseable && outlineRenderer != null)
 			outlineRenderer.enabled = false;
-	}*/
+	}
 
 	void OnMouseDown()
 	{
