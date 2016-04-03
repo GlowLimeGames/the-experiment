@@ -12,10 +12,7 @@ public class InteractionCameraView : MonoBehaviour {
 	private Vector3 defaultPosition;
 	Grayscale cameraGrayscale;
 	Camera camera;
-
-	public GameObject[] messageTarget;
-	public string message;
-
+    
 	void Start () 
 	{
 		// These are probably going to be unique so grab them this way
@@ -53,9 +50,9 @@ public class InteractionCameraView : MonoBehaviour {
 
 		Destroy (viewObject);
 
-		viewObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
-			defaultPosition, 
-			Quaternion.Euler(newDisplayObject.interactionObject.transform.localEulerAngles - playerEulers));
+		viewObject = (GameObject)Instantiate(newDisplayObject.gameObject, 
+			defaultPosition,
+            Quaternion.Euler(newDisplayObject.gameObject.transform.localEulerAngles - playerEulers));
 		
 		camera.enabled = true;
 		cameraGrayscale.enabled = true;
@@ -64,19 +61,19 @@ public class InteractionCameraView : MonoBehaviour {
 			dialog.SetDialogQueue (newDisplayObject.objectDialog);
 		dialog.DisplayNextCard ();
 
-		StartCoroutine (CloseInteractionCamera ());
+		StartCoroutine (CloseInteractionCamera (newDisplayObject.interactionObjects));
 	}
-		IEnumerator CloseInteractionCamera () {
+
+	IEnumerator CloseInteractionCamera (GameObject[] interactionObjects) {
 		while (dialog.IsDisplaying())
 			yield return null;
 		// Else...
 		camera.enabled = false;
 		cameraGrayscale.enabled = false;
 		// Run world behaviors resulting from interaction
-		if (messageTarget.Length > 0) {
-			foreach (GameObject target in messageTarget) {
-				target.SendMessage ("RunBehavior()");
-			}
+        foreach (GameObject target in interactionObjects)
+        {
+			target.SendMessage ("RunBehavior");
 		}
 	}
 }

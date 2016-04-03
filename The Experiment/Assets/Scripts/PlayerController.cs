@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour {
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
 
-        if (!dialogBox.IsDisplaying())
+        if (dialogBox == null || !dialogBox.IsDisplaying())
         {
             p_Movement.Move(h, v);
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 // Controls events in the starting room
 public class StartRoomScript : MonoBehaviour 
@@ -12,13 +13,14 @@ public class StartRoomScript : MonoBehaviour
     public CameraTarget TeaganControlFocus;
     public CameraTarget RatInteractionFocus;
 
-    // Index int dialog at which we look over at Tolstoy
+    // Index into dialog at which we look over at Tolstoy
     public int tolstoyRevealIndex;
 
     public Animator cageAnimator;
 
-    public Camera inspectionCamera;
-    public DialogCard ratDialog;
+    public GameObject dialogueInstructions;
+    public GameObject mouseInstructions;
+    public GameObject moveInstructions;
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
@@ -42,10 +44,13 @@ public class StartRoomScript : MonoBehaviour
 
     IEnumerator StartRoomCoroutine()
     {
-        inspectionCamera.enabled = false;
         cameraGrayscale.enabled = false;
         cameraControl.target = TeaganSpeachFocus;
         cameraControl.JumpToTarget();
+
+        dialogueInstructions.SetActive(true);
+        mouseInstructions.SetActive(false);
+        moveInstructions.SetActive(false);
 
         int tolstoyIndex = 0; // TolstoyDialog.Length - 1;
         int teaganIndex = 0; // TeaganDialog.Length - 1;
@@ -93,27 +98,30 @@ public class StartRoomScript : MonoBehaviour
             }
         }
 
+        dialogueInstructions.SetActive(false);
+        mouseInstructions.SetActive(true);
+
         cameraControl.target = RatInteractionFocus;
 
         while (!keyRat.Clicked)
             yield return null;
 
-        /*
-        inspectionCamera.enabled = true;
-        cameraGrayscale.enabled = true;
-        cameraGrayscale.effectAmount = 1;
-        dialog.SetDialogQueue(SplitCard(ratDialog));
-        dialog.DisplayNextCard();
-        */
-
+        dialogueInstructions.SetActive(true);
+        mouseInstructions.SetActive(false);
+        
         while (dialog.IsDisplaying())
             yield return null;
 
-        // inspectionCamera.enabled = false;
-        // cameraGrayscale.enabled = false;
         cageAnimator.SetBool("Open", true);
 
+        dialogueInstructions.SetActive(false);
+        moveInstructions.SetActive(true);
+
         cameraControl.target = TeaganControlFocus;
+
+        yield return new WaitForSeconds(8f);
+
+        moveInstructions.SetActive(false);
     }
 
     private DialogCard[] SplitCard(DialogCard card)

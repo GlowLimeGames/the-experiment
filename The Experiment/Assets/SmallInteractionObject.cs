@@ -7,7 +7,9 @@ public class SmallInteractionObject : MonoBehaviour
 	public Vector3 interactionRotation;
 	public Vector3 interactionScale;
 	public DialogCard objectDialog;
-	public GameObject interactionObject;
+
+    // The objects that will recieve a RunBehavior message after interaction
+	public GameObject[] interactionObjects;
 
 	public bool isUseable = true;
 	public bool disableAfterUse = true;
@@ -23,7 +25,6 @@ public class SmallInteractionObject : MonoBehaviour
 
 		interactionScale = transform.localScale;
 		interactionRotation = transform.localEulerAngles;
-		interactionObject = gameObject;
 		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
 
 		player = GameObject.FindGameObjectWithTag ("Player");
