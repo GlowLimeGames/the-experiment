@@ -13,7 +13,7 @@ public class InteractionCameraView : MonoBehaviour {
 	Grayscale cameraGrayscale;
 	Camera camera;
 
-	void Start () 
+	void Awake () 
 	{
 		// These are probably going to be unique so grab them this way
 		//camera = GetComponent<Camera>();

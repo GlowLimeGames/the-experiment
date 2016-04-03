@@ -10,6 +10,7 @@ public class StartRoomScript : MonoBehaviour
     public DialogCard[] TeaganDialog;
     public CameraTarget TeaganSpeachFocus;
     public CameraTarget TeaganControlFocus;
+    public CameraTarget RatInteractionFocus;
 
     // Index int dialog at which we look over at Tolstoy
     public int tolstoyRevealIndex;
@@ -92,7 +93,7 @@ public class StartRoomScript : MonoBehaviour
             }
         }
 
-        cameraControl.target = TeaganControlFocus;
+        cameraControl.target = RatInteractionFocus;
 
         while (!keyRat.Clicked)
             yield return null;
@@ -109,6 +110,8 @@ public class StartRoomScript : MonoBehaviour
         inspectionCamera.enabled = false;
         cameraGrayscale.enabled = false;
         cageAnimator.SetBool("Open", true);
+
+        cameraControl.target = TeaganControlFocus;
     }
 
     private DialogCard[] SplitCard(DialogCard card)

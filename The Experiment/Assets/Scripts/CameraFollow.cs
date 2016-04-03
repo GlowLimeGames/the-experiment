@@ -46,6 +46,7 @@ public class CameraFollow : MonoBehaviour
         }
 
         // Raycast against environment to prevent camera from clipping through it
+        if(!target.ignoreEnvironment)
         {
             var delta = position - target.transform.position;
             float distance = delta.magnitude;

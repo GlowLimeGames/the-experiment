@@ -22,6 +22,9 @@ public class CameraTarget : MonoBehaviour
     [Tooltip("How fast the camera updates towards the target.")]
     public float cameraPositionUpdateSpeed, cameraAngleUpdateSpeed;
 
+    [Tooltip("If checked, camera doesn't bounce off environment, may clip through instead.")]
+    public bool ignoreEnvironment;
+
     public Vector3 GetTargetCameraPosition()
     {
         if (followBehind) phi = Mathf.Atan2(this.transform.forward.z, this.transform.forward.x) + Mathf.PI;
