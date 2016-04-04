@@ -32,9 +32,10 @@ public class SmallInteractionObject : MonoBehaviour
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 
-
 		if (player == null)
 			Debug.LogError ("Player not found; set its tag to Player");
+		if (interactionScale == Vector3.zero)
+			Debug.LogWarning ("Verify interaction scale has been set");
 
 		interactionCameraView.AddToDictionary (this);
 	}

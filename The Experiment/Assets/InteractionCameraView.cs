@@ -10,6 +10,7 @@ public class InteractionCameraView : MonoBehaviour {
 	private GameObject viewObject;
 	private DialogBox dialog;
 	private Vector3 defaultPosition;
+	private Vector3 viewBounds;
 	Grayscale cameraGrayscale;
 	Camera camera;
     
@@ -23,8 +24,10 @@ public class InteractionCameraView : MonoBehaviour {
 		dialog = Object.FindObjectOfType<DialogBox>();
 		cameraGrayscale = Object.FindObjectOfType<Grayscale>();
 		camera = GameObject.FindGameObjectWithTag ("InteractionCamera").GetComponent<Camera>();
+		if (camera.transform.rotation != Quaternion.Euler(Vector3.zero))
+			Debug.LogError ("The scale to fit function is gonna bug out unless you change the rotation of the camera to zero.");
 
-		defaultPosition = viewObject.transform.localPosition;
+		defaultPosition = viewObject.transform.position;
 
 		objectDictionary = new Dictionary<string, SmallInteractionObject> ();
 		camera.enabled = false;
@@ -47,13 +50,30 @@ public class InteractionCameraView : MonoBehaviour {
 	public void DisplayObject (string key, Vector3 playerEulers) {
 
 		SmallInteractionObject newDisplayObject = objectDictionary [key];
+		Quaternion objectRotation = Quaternion.Euler (newDisplayObject.interactionRotation);
 
 		Destroy (viewObject);
+		newDisplayObject.isUseable = false;
 
+<<<<<<< HEAD
 		viewObject = (GameObject)Instantiate(newDisplayObject.gameObject, 
 			defaultPosition,
             Quaternion.Euler(newDisplayObject.gameObject.transform.localEulerAngles - playerEulers));
 		
+=======
+		viewObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
+			defaultPosition, 
+			objectRotation);
+
+		//viewObject.layer = gameObject.layer;
+		// ScaleObjectToFit();
+		print("Frame height: " + (2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad)));
+		print ("Frame width: " + (2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad)) / camera.aspect);
+		print ("Lossy Y: " + viewObject.transform.lossyScale.y);
+		print ("Lossy X: " + viewObject.transform.lossyScale.x);
+
+
+>>>>>>> 54ec17e490b45e602053ad81e1bab078b8a46854
 		camera.enabled = true;
 		cameraGrayscale.enabled = true;
 		cameraGrayscale.effectAmount = 1;
@@ -64,7 +84,35 @@ public class InteractionCameraView : MonoBehaviour {
 		StartCoroutine (CloseInteractionCamera (newDisplayObject.interactionObjects));
 	}
 
+<<<<<<< HEAD
 	IEnumerator CloseInteractionCamera (GameObject[] interactionObjects) {
+=======
+	void ScaleObjectToFit() {
+		float largestSide;
+		float scaleFactor;
+		// float frustumBound;
+		float lossyY = viewObject.transform.lossyScale.y;
+		float lossyX = viewObject.transform.lossyScale.x;
+		// Caution: this code is incredibly hacky.
+		float frustumHeight = 2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+		float frustumWidth = frustumHeight * camera.aspect;
+
+		if (lossyX > lossyY) {
+			largestSide = lossyX;
+			scaleFactor = frustumWidth / lossyX;
+		} else {
+			largestSide = lossyY;
+			scaleFactor = frustumHeight / lossyY;
+		}
+		Vector3 newScale = viewObject.transform.localScale;
+		for (int i = 0; i < 3; i++) {
+			newScale [i] = newScale[i] * scaleFactor;
+			}
+		viewObject.transform.localScale = newScale;
+
+	}
+		IEnumerator CloseInteractionCamera () {
+>>>>>>> 54ec17e490b45e602053ad81e1bab078b8a46854
 		while (dialog.IsDisplaying())
 			yield return null;
 		// Else...
