@@ -112,7 +112,7 @@
                  float4 parallel = end.pos-start.pos;
                  normalize(parallel);
                  parallel *= thisWidth;
-                 
+
                  float4 perpendicular = float4(parallel.y,-parallel.x, 0, 0);
                  perpendicular = normalize(perpendicular) * thisWidth;
                  float4 v1 = start.pos-parallel;

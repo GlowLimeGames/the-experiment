@@ -36,8 +36,6 @@ public class SmallInteractionObject : MonoBehaviour
 			Debug.LogError ("Player not found; set its tag to Player");
 		if (interactionScale == Vector3.zero)
 			Debug.LogWarning ("Verify interaction scale has been set");
-
-		interactionCameraView.AddToDictionary (this);
 	}
 
 	void OnMouseOver()
@@ -57,7 +55,7 @@ public class SmallInteractionObject : MonoBehaviour
 		if (isUseable && !interactionCameraView.IsDisplaying()) {
 			print ("Mouse click registered");
 			// Add stopped movement
-			interactionCameraView.DisplayObject (name, player.transform.localEulerAngles);
+			interactionCameraView.DisplayObject (this, player.transform.localEulerAngles);
 			Clicked = true;
 			if (disableAfterUse)
 				isUseable = false;

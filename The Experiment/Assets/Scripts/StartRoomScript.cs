@@ -21,12 +21,12 @@ public class StartRoomScript : MonoBehaviour
     public GameObject dialogueInstructions;
     public GameObject mouseInstructions;
     public GameObject moveInstructions;
+    public SmallInteractionObject keyRat;
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
     private Grayscale cameraGrayscale;
-    private SmallInteractionObject keyRat;
-	
+    
 	void Start () 
     {
         // Since they're taking turns, enforce this
@@ -37,7 +37,6 @@ public class StartRoomScript : MonoBehaviour
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
         cameraGrayscale = Object.FindObjectOfType<Grayscale>();
-        keyRat = Object.FindObjectOfType<SmallInteractionObject>();
 
         StartCoroutine(StartRoomCoroutine());
 	}

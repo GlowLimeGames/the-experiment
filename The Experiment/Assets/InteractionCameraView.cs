@@ -2,126 +2,91 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// [RequireComponent(Camera)]
+[RequireComponent(typeof(Camera))]
+public class InteractionCameraView : MonoBehaviour
+{
+    private DialogBox dialog;
+    private Vector3 viewBounds;
+    Grayscale cameraGrayscale;
+    Camera camera;
 
-public class InteractionCameraView : MonoBehaviour {
-	public Dictionary<string, SmallInteractionObject> objectDictionary;
+    GameObject currentInspectedObject;
 
-	private GameObject viewObject;
-	private DialogBox dialog;
-	private Vector3 defaultPosition;
-	private Vector3 viewBounds;
-	Grayscale cameraGrayscale;
-	Camera camera;
-    
-	void Start () 
-	{
-		// These are probably going to be unique so grab them this way
-		viewObject = GameObject.Find("ViewObject");
-		if (viewObject == null)
-			Debug.LogError ("ViewObject not found!");
-		
-		dialog = Object.FindObjectOfType<DialogBox>();
-		cameraGrayscale = Object.FindObjectOfType<Grayscale>();
-		camera = GameObject.FindGameObjectWithTag ("InteractionCamera").GetComponent<Camera>();
-		if (camera.transform.rotation != Quaternion.Euler(Vector3.zero))
-			Debug.LogError ("The scale to fit function is gonna bug out unless you change the rotation of the camera to zero.");
+    void Start()
+    {
+        dialog = Object.FindObjectOfType<DialogBox>();
+        cameraGrayscale = Object.FindObjectOfType<Grayscale>();
+        camera = GetComponent<Camera>();
+        camera.enabled = false;
+    }
 
-		defaultPosition = viewObject.transform.position;
+    public bool IsDisplaying()
+    {
+        return camera.enabled;
+    }
 
-		objectDictionary = new Dictionary<string, SmallInteractionObject> ();
-		camera.enabled = false;
-	}
-	public void AddToDictionary (SmallInteractionObject newObject) {
-		// Interaction objects MUST have a unique name!!!
-		string key = newObject.name;
+    public void DisplayObject(SmallInteractionObject newDisplayObject, Vector3 playerEulers)
+    {
+        Destroy(currentInspectedObject);
+        newDisplayObject.isUseable = false;
 
-		if (objectDictionary.ContainsKey (key))
-			Debug.LogError ("Object already exists in dictionary");
-		else {
-			objectDictionary.Add (key, newObject);
-		}
-	}
+        currentInspectedObject = (GameObject)Instantiate(newDisplayObject.gameObject, this.transform.position, Quaternion.identity);
+        currentInspectedObject.transform.parent = this.transform;
 
-	public bool IsDisplaying () {
-		return camera.enabled;
-	}
+        ScaleObjectToFit();
 
-	public void DisplayObject (string key, Vector3 playerEulers) {
+        camera.enabled = true;
+        cameraGrayscale.enabled = true;
+        cameraGrayscale.effectAmount = 1;
+        if (newDisplayObject.objectDialog != null)
+            dialog.SetDialogQueue(newDisplayObject.objectDialog);
+        dialog.DisplayNextCard();
 
-		SmallInteractionObject newDisplayObject = objectDictionary [key];
-		Quaternion objectRotation = Quaternion.Euler (newDisplayObject.interactionRotation);
+        StartCoroutine(CloseInteractionCamera(newDisplayObject.interactionObjects));
+    }
 
-		Destroy (viewObject);
-		newDisplayObject.isUseable = false;
+    void ScaleObjectToFit()
+    {
+        // Don't question the math
+        var size = Vector3.Scale(currentInspectedObject.GetComponent<MeshFilter>().mesh.bounds.size, currentInspectedObject.transform.localScale);
 
-<<<<<<< HEAD
-		viewObject = (GameObject)Instantiate(newDisplayObject.gameObject, 
-			defaultPosition,
-            Quaternion.Euler(newDisplayObject.gameObject.transform.localEulerAngles - playerEulers));
-		
-=======
-		viewObject = (GameObject)Instantiate(newDisplayObject.interactionObject, 
-			defaultPosition, 
-			objectRotation);
+        // Artificially inflate size to make is scale into a smaller box
+        size *= 2f;
 
-		//viewObject.layer = gameObject.layer;
-		// ScaleObjectToFit();
-		print("Frame height: " + (2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad)));
-		print ("Frame width: " + (2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad)) / camera.aspect);
-		print ("Lossy Y: " + viewObject.transform.lossyScale.y);
-		print ("Lossy X: " + viewObject.transform.lossyScale.x);
+        Debug.Log("Size: " + size);
 
+        float height = size.y;
+        float width = Mathf.Max(size.x, size.z);
+        float objectRatio = width / height;
 
->>>>>>> 54ec17e490b45e602053ad81e1bab078b8a46854
-		camera.enabled = true;
-		cameraGrayscale.enabled = true;
-		cameraGrayscale.effectAmount = 1;
-		if (newDisplayObject.objectDialog != null)
-			dialog.SetDialogQueue (newDisplayObject.objectDialog);
-		dialog.DisplayNextCard ();
+        float distance = 0f;
 
-		StartCoroutine (CloseInteractionCamera (newDisplayObject.interactionObjects));
-	}
-
-<<<<<<< HEAD
-	IEnumerator CloseInteractionCamera (GameObject[] interactionObjects) {
-=======
-	void ScaleObjectToFit() {
-		float largestSide;
-		float scaleFactor;
-		// float frustumBound;
-		float lossyY = viewObject.transform.lossyScale.y;
-		float lossyX = viewObject.transform.lossyScale.x;
-		// Caution: this code is incredibly hacky.
-		float frustumHeight = 2.0f * (transform.position.z) * Mathf.Tan (camera.fieldOfView * 0.5f * Mathf.Deg2Rad);
-		float frustumWidth = frustumHeight * camera.aspect;
-
-		if (lossyX > lossyY) {
-			largestSide = lossyX;
-			scaleFactor = frustumWidth / lossyX;
-		} else {
-			largestSide = lossyY;
-			scaleFactor = frustumHeight / lossyY;
-		}
-		Vector3 newScale = viewObject.transform.localScale;
-		for (int i = 0; i < 3; i++) {
-			newScale [i] = newScale[i] * scaleFactor;
-			}
-		viewObject.transform.localScale = newScale;
-
-	}
-		IEnumerator CloseInteractionCamera () {
->>>>>>> 54ec17e490b45e602053ad81e1bab078b8a46854
-		while (dialog.IsDisplaying())
-			yield return null;
-		// Else...
-		camera.enabled = false;
-		cameraGrayscale.enabled = false;
-		// Run world behaviors resulting from interaction
-        foreach (GameObject target in interactionObjects)
+        if (objectRatio > camera.aspect)
         {
-			target.SendMessage ("RunBehavior");
-		}
-	}
+            // Need to fit width
+            float horizontalFov = Mathf.Atan(Mathf.Tan(0.5f * camera.fieldOfView * Mathf.Deg2Rad) * camera.aspect);
+            distance = (width * 0.5f) / Mathf.Tan(horizontalFov);
+        }
+        else
+        {
+            // Need to fit height
+            distance = (height * 0.5f) / Mathf.Tan(Mathf.Deg2Rad * 0.5f * camera.fieldOfView);
+        }
+
+        currentInspectedObject.transform.position = this.transform.position + this.transform.forward * distance;
+    }
+
+    IEnumerator CloseInteractionCamera(GameObject[] interactionObjects)
+    {
+        while (dialog.IsDisplaying())
+            yield return null;
+
+        // Else...
+        camera.enabled = false;
+        cameraGrayscale.enabled = false;
+
+        // Run world behaviors resulting from interaction
+        foreach (GameObject target in interactionObjects)
+            target.SendMessage("RunBehavior");
+    }
 }
