@@ -7,10 +7,9 @@ public class InteractionCameraView : MonoBehaviour
 {
     private DialogBox dialog;
     private Vector3 viewBounds;
-    Grayscale cameraGrayscale;
-    Camera camera;
-
-    GameObject currentInspectedObject;
+    private Grayscale cameraGrayscale;
+    private Camera camera;
+    private GameObject currentInspectedObject;
 
     void Start()
     {
@@ -25,15 +24,17 @@ public class InteractionCameraView : MonoBehaviour
         return camera.enabled;
     }
 
-    public void DisplayObject(SmallInteractionObject newDisplayObject, Vector3 playerEulers)
+    public void DisplayObject(SmallInteractionObject newDisplayObject)
     {
         Destroy(currentInspectedObject);
         newDisplayObject.isUseable = false;
 
+        Debug.Log(newDisplayObject.interactionRotation);
         currentInspectedObject = (GameObject)Instantiate(newDisplayObject.gameObject, this.transform.position, Quaternion.identity);
+        currentInspectedObject.transform.localRotation = Quaternion.Euler(newDisplayObject.interactionRotation);
         currentInspectedObject.transform.parent = this.transform;
 
-        ScaleObjectToFit();
+        PlaceObjectToFit();
 
         camera.enabled = true;
         cameraGrayscale.enabled = true;
@@ -45,15 +46,13 @@ public class InteractionCameraView : MonoBehaviour
         StartCoroutine(CloseInteractionCamera(newDisplayObject.interactionObjects));
     }
 
-    void ScaleObjectToFit()
+    void PlaceObjectToFit()
     {
         // Don't question the math
         var size = Vector3.Scale(currentInspectedObject.GetComponent<MeshFilter>().mesh.bounds.size, currentInspectedObject.transform.localScale);
 
         // Artificially inflate size to make is scale into a smaller box
         size *= 2f;
-
-        Debug.Log("Size: " + size);
 
         float height = size.y;
         float width = Mathf.Max(size.x, size.z);
@@ -72,6 +71,10 @@ public class InteractionCameraView : MonoBehaviour
             // Need to fit height
             distance = (height * 0.5f) / Mathf.Tan(Mathf.Deg2Rad * 0.5f * camera.fieldOfView);
         }
+
+        // Make sure item doesn't hit camera clip plane.
+        if (distance - camera.nearClipPlane < width)
+            width = distance - camera.nearClipPlane;
 
         currentInspectedObject.transform.position = this.transform.position + this.transform.forward * distance;
     }

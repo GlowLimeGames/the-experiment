@@ -1,64 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SmallInteractionObject : MonoBehaviour 
+public class SmallInteractionObject : MonoBehaviour
 {
-	//public Renderer outlineRenderer;
-	public Vector3 interactionRotation;
-	public Vector3 interactionScale;
-	public DialogCard objectDialog;
+    public Vector3 interactionRotation;
+    public DialogCard objectDialog;
 
     // The objects that will recieve a RunBehavior message after interaction
-	public GameObject[] interactionObjects;
+    public GameObject[] interactionObjects;
 
-	public MeshRenderer outlineRenderer;
+    public MeshRenderer outlineRenderer;
 
-	public bool isUseable = true;
-	public bool disableAfterUse = true;
+    public bool isUseable = true;
+    public bool disableAfterUse = true;
 
-	InteractionCameraView interactionCameraView;
-	GameObject player;
+    private InteractionCameraView interactionCameraView;
 
-	public bool Clicked { get; private set; }
+    public bool Clicked { get; private set; }
 
-	void Start()
-	{
-		outlineRenderer.enabled = false;
+    void Start()
+    {
+        outlineRenderer.enabled = false;
+        interactionCameraView = FindObjectOfType<InteractionCameraView>();
+    }
 
-		interactionScale = transform.localScale;
-		interactionRotation = transform.localEulerAngles;
+    void OnMouseOver()
+    {
+        if (isUseable && outlineRenderer != null)
+            outlineRenderer.enabled = true;
+    }
 
-		interactionCameraView = FindObjectOfType<InteractionCameraView> ();
+    void OnMouseExit()
+    {
+        if (isUseable && outlineRenderer != null)
+            outlineRenderer.enabled = false;
+    }
 
-		player = GameObject.FindGameObjectWithTag ("Player");
-
-		if (player == null)
-			Debug.LogError ("Player not found; set its tag to Player");
-		if (interactionScale == Vector3.zero)
-			Debug.LogWarning ("Verify interaction scale has been set");
-	}
-
-	void OnMouseOver()
-	{
-		if (isUseable && outlineRenderer != null)
-			outlineRenderer.enabled = true;
-	}
-
-	void OnMouseExit()
-	{
-		if (isUseable && outlineRenderer != null)
-			outlineRenderer.enabled = false;
-	}
-
-	void OnMouseDown()
-	{
-		if (isUseable && !interactionCameraView.IsDisplaying()) {
-			print ("Mouse click registered");
-			// Add stopped movement
-			interactionCameraView.DisplayObject (this, player.transform.localEulerAngles);
-			Clicked = true;
-			if (disableAfterUse)
-				isUseable = false;
-		}
-	}
+    void OnMouseDown()
+    {
+        if (isUseable && !interactionCameraView.IsDisplaying())
+        {
+            interactionCameraView.DisplayObject(this);
+            Clicked = true;
+            if (disableAfterUse)
+                isUseable = false;
+        }
+    }
 }
