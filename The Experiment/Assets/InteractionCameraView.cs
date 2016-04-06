@@ -5,6 +5,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Camera))]
 public class InteractionCameraView : MonoBehaviour
 {
+    public float rotationRate;
+    public float inflationFactor;
+
     private DialogBox dialog;
     private Vector3 viewBounds;
     private Grayscale cameraGrayscale;
@@ -52,10 +55,10 @@ public class InteractionCameraView : MonoBehaviour
         var size = Vector3.Scale(currentInspectedObject.GetComponent<MeshFilter>().mesh.bounds.size, currentInspectedObject.transform.localScale);
 
         // Artificially inflate size to make is scale into a smaller box
-        size *= 2f;
+        size *= inflationFactor;
 
-        float height = size.y;
-        float width = Mathf.Max(size.x, size.z);
+        float height = Mathf.Max(size.x, size.z, size.y);
+        float width = Mathf.Max(size.x, size.z, size.y);
         float objectRatio = width / height;
 
         float distance = 0f;
@@ -74,17 +77,40 @@ public class InteractionCameraView : MonoBehaviour
 
         // Make sure item doesn't hit camera clip plane.
         if (distance - camera.nearClipPlane < width)
-            width = distance - camera.nearClipPlane;
+            distance = width + camera.nearClipPlane;
+
 
         currentInspectedObject.transform.position = this.transform.position + this.transform.forward * distance;
     }
 
+    IEnumerator RotateObjectCoroutine()
+    {
+        while (true)
+        {
+            while (Input.GetMouseButton(0))
+            {
+                float x = Input.GetAxis("Mouse X");
+                float y = Input.GetAxis("Mouse Y");
+
+                Quaternion currentRotation = currentInspectedObject.transform.rotation;
+                Quaternion rotation = Quaternion.Inverse(currentRotation) * Quaternion.Euler(y * rotationRate, -x * rotationRate, 0) * currentRotation;
+                currentInspectedObject.transform.rotation *= rotation;
+                yield return null;
+            }
+
+            yield return null;
+        }
+    }
+
     IEnumerator CloseInteractionCamera(GameObject[] interactionObjects)
     {
+        var rotateCoroutine = StartCoroutine(RotateObjectCoroutine());
+
         while (dialog.IsDisplaying())
             yield return null;
 
-        // Else...
+        StopCoroutine(rotateCoroutine);
+
         camera.enabled = false;
         cameraGrayscale.enabled = false;
 
