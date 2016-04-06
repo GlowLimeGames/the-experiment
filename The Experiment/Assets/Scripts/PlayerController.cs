@@ -1,26 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
-	public float grabRange = 5.0f;
-	public float grabRadius = 5.0f;
-	public DialogBox dialogBox;
+public class PlayerController : MonoBehaviour
+{
+    private GameState gameState;
+    private bool inRangeInteract = false;
+    private PlayerMovementWASD p_Movement;
 
-	private bool inRangeInteract = false;
-	private PlayerMovementWASD p_Movement;
-	// Use this for initialization
-	void Start () {
-		p_Movement = GetComponent<PlayerMovementWASD> ();
-		dialogBox = FindObjectOfType<DialogBox> ();
-	}
-
-	void FixedUpdate() 
+    void Start()
     {
-		// read inputs
-		float h = Input.GetAxis ("Horizontal");
-		float v = Input.GetAxis ("Vertical");
+        p_Movement = GetComponent<PlayerMovementWASD>();
+        gameState = FindObjectOfType<GameState>();
+    }
 
-        if (dialogBox == null || !dialogBox.IsDisplaying())
+    void FixedUpdate()
+    {
+        // read inputs
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+
+        if (!gameState.IsGameplayPaused)
         {
             p_Movement.Move(h, v);
         }
@@ -28,5 +27,5 @@ public class PlayerController : MonoBehaviour {
         {
             p_Movement.Move(0, 0);
         }
-	}
+    }
 }

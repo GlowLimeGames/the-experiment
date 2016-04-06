@@ -23,6 +23,7 @@ public class PlayerMovementWASD : MonoBehaviour {
 
 		transform.Rotate (Vector3.up * horizontal * turnSpeed);
 
+        if (vertical < 0) vertical *= 0.2f;
 		rb.MovePosition (transform.position + transform.forward * moveSpeed * vertical * Time.deltaTime);
 	}
 

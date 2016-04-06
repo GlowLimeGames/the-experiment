@@ -25,7 +25,6 @@ public class StartRoomScript : MonoBehaviour
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
-    private Grayscale cameraGrayscale;
     
 	void Start () 
     {
@@ -36,14 +35,12 @@ public class StartRoomScript : MonoBehaviour
         // These are probably going to be uniqe so grab them this way
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
-        cameraGrayscale = Object.FindObjectOfType<Grayscale>();
 
         StartCoroutine(StartRoomCoroutine());
 	}
 
     IEnumerator StartRoomCoroutine()
     {
-        cameraGrayscale.enabled = false;
         cameraControl.target = TeaganSpeachFocus;
         cameraControl.JumpToTarget();
 
@@ -64,6 +61,7 @@ public class StartRoomScript : MonoBehaviour
 
             while (dialog.IsDisplaying())
             {
+#if UNITY_EDITOR
                 // Cheat - space to exit
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
@@ -72,6 +70,7 @@ public class StartRoomScript : MonoBehaviour
                     cameraControl.target = TeaganControlFocus;
                     yield break;
                 }
+#endif
                 yield return null;
             }
 
@@ -84,6 +83,7 @@ public class StartRoomScript : MonoBehaviour
 
                 while (dialog.IsDisplaying())
                 {
+#if UNITY_EDITOR
                     // Cheat - space to exit
                     if (Input.GetKeyDown(KeyCode.Space))
                     {
@@ -92,6 +92,7 @@ public class StartRoomScript : MonoBehaviour
                         cameraControl.target = TeaganControlFocus;
                         yield break;
                     }
+#endif
                     yield return null;
                 }
             }

@@ -112,7 +112,7 @@ public class InteractionCameraView : MonoBehaviour
         StopCoroutine(rotateCoroutine);
 
         camera.enabled = false;
-        cameraGrayscale.enabled = false;
+        cameraGrayscale.effectAmount = 0;
 
         // Run world behaviors resulting from interaction
         foreach (GameObject target in interactionObjects)

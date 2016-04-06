@@ -7,11 +7,11 @@ public class Grayscale : ImageEffectBase {
     public Texture  textureRamp;
 
     [Range(-1.0f,1.0f)]
-    public float    rampOffset;
+    public float rampOffset;
 
     [Range(0, 1)]
     public float effectAmount;
-
+    
     // Called by camera to apply image effect
     void OnRenderImage (RenderTexture source, RenderTexture destination) {
         material.SetTexture("_RampTex", textureRamp);
