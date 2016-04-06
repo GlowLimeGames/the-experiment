@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Camera))]
-public class InteractionCameraView : MonoBehaviour
+public class InteractionCamera : MonoBehaviour
 {
     public float rotationRate;
     public float inflationFactor;
@@ -27,26 +27,26 @@ public class InteractionCameraView : MonoBehaviour
         return camera.enabled;
     }
 
-    public void DisplayObject(SmallInteractionObject newDisplayObject)
+    public void DisplayObject(InteractionObject interactionObject)
     {
-        Destroy(currentInspectedObject);
-        newDisplayObject.isUseable = false;
-
-        Debug.Log(newDisplayObject.interactionRotation);
-        currentInspectedObject = (GameObject)Instantiate(newDisplayObject.gameObject, this.transform.position, Quaternion.identity);
-        currentInspectedObject.transform.localRotation = Quaternion.Euler(newDisplayObject.interactionRotation);
-        currentInspectedObject.transform.parent = this.transform;
-
-        PlaceObjectToFit();
-
-        camera.enabled = true;
-        cameraGrayscale.enabled = true;
-        cameraGrayscale.effectAmount = 1;
-        if (newDisplayObject.objectDialog != null)
-            dialog.SetDialogQueue(newDisplayObject.objectDialog);
+        if (interactionObject.objectDialog != null)
+            dialog.SetDialogQueue(interactionObject.objectDialog);
         dialog.DisplayNextCard();
 
-        StartCoroutine(CloseInteractionCamera(newDisplayObject.interactionObjects));
+        if (interactionObject.isInspectable)
+        {
+            interactionObject.isUseable = false;
+
+            currentInspectedObject = (GameObject)Instantiate(interactionObject.gameObject, this.transform.position, Quaternion.Euler(interactionObject.interactionRotation));
+            currentInspectedObject.transform.parent = this.transform;
+
+            PlaceObjectToFit();
+
+            camera.enabled = true;
+            cameraGrayscale.effectAmount = 1;
+        }
+
+        StartCoroutine(CloseInteractionCamera(interactionObject.interactionObjects));
     }
 
     void PlaceObjectToFit()
@@ -104,12 +104,15 @@ public class InteractionCameraView : MonoBehaviour
 
     IEnumerator CloseInteractionCamera(GameObject[] interactionObjects)
     {
-        var rotateCoroutine = StartCoroutine(RotateObjectCoroutine());
+        Coroutine rotateCoroutine = null;
+        if(currentInspectedObject != null)
+            rotateCoroutine = StartCoroutine(RotateObjectCoroutine());
 
         while (dialog.IsDisplaying())
             yield return null;
 
-        StopCoroutine(rotateCoroutine);
+        if(rotateCoroutine != null)
+            StopCoroutine(rotateCoroutine);
 
         camera.enabled = false;
         cameraGrayscale.effectAmount = 0;
@@ -117,5 +120,7 @@ public class InteractionCameraView : MonoBehaviour
         // Run world behaviors resulting from interaction
         foreach (GameObject target in interactionObjects)
             target.SendMessage("RunBehavior");
+
+        Destroy(currentInspectedObject);
     }
 }

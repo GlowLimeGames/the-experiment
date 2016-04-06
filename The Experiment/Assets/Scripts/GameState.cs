@@ -16,14 +16,23 @@ public class GameState : MonoBehaviour
 
     public bool IsGameplayPaused
     {
-        get { return dialog.IsDisplaying() || gameMenu.IsActive; }
+        get 
+        { 
+            bool paused = false;
+            if (dialog != null)
+                paused = paused || dialog.IsDisplaying();
+            if (gameMenu != null)
+                paused = paused || gameMenu.IsActive;
+            return paused;
+        }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)&& !dialog.IsDisplaying())
+        if (Input.GetKeyDown(KeyCode.Escape) && (dialog == null || !dialog.IsDisplaying()))
         {
-            gameMenu.Toggle();
+            if(gameMenu != null)
+                gameMenu.Toggle();
         }
     }
 }

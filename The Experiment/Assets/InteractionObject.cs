@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SmallInteractionObject : MonoBehaviour
+public class InteractionObject : MonoBehaviour
 {
+    // Whether or not the object should be brought up into inspection mode
+    public bool isInspectable = true;
+
     public Vector3 interactionRotation;
     public DialogCard objectDialog;
 
@@ -14,14 +17,14 @@ public class SmallInteractionObject : MonoBehaviour
     public bool isUseable = true;
     public bool disableAfterUse = true;
 
-    private InteractionCameraView interactionCameraView;
+    private InteractionCamera interactionCamera;
 
     public bool Clicked { get; private set; }
 
     void Start()
     {
         outlineRenderer.enabled = false;
-        interactionCameraView = FindObjectOfType<InteractionCameraView>();
+        interactionCamera = FindObjectOfType<InteractionCamera>();
     }
 
     void OnMouseOver()
@@ -38,9 +41,9 @@ public class SmallInteractionObject : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (isUseable && !interactionCameraView.IsDisplaying())
+        if (isUseable && !interactionCamera.IsDisplaying())
         {
-            interactionCameraView.DisplayObject(this);
+            interactionCamera.DisplayObject(this);
             Clicked = true;
             if (disableAfterUse)
                 isUseable = false;

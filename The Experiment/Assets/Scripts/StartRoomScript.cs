@@ -21,7 +21,7 @@ public class StartRoomScript : MonoBehaviour
     public GameObject dialogueInstructions;
     public GameObject mouseInstructions;
     public GameObject moveInstructions;
-    public SmallInteractionObject keyRat;
+    public InteractionObject keyRat;
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
