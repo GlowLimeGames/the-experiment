@@ -45,8 +45,10 @@ public class InteractionObject : MonoBehaviour
         {
             interactionCamera.DisplayObject(this);
             Clicked = true;
+			outlineRenderer.enabled = false;
             if (disableAfterUse)
                 isUseable = false;
+			
         }
     }
 }
