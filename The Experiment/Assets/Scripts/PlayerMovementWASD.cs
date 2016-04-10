@@ -5,6 +5,8 @@ public class PlayerMovementWASD : MonoBehaviour {
 
 	public float moveSpeed = 5f;
 	public float turnSpeed = 180f;
+    [Range(0f, 1f)]
+    public float backupSpeedPercent = 0.5f;
 
 	private Rigidbody rb;
 	private Animator anim;
@@ -23,7 +25,7 @@ public class PlayerMovementWASD : MonoBehaviour {
 
 		transform.Rotate (Vector3.up * horizontal * turnSpeed);
 
-        if (vertical < 0) vertical *= 0.2f;
+        if (vertical < 0) vertical *= backupSpeedPercent;
 		rb.MovePosition (transform.position + transform.forward * moveSpeed * vertical * Time.deltaTime);
 	}
 
