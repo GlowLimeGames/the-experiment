@@ -12,7 +12,6 @@ public class InteractionCamera : MonoBehaviour
     private Vector3 viewBounds;
     private Grayscale cameraGrayscale;
     private Camera camera;
-    private GameObject currentInspectedObject;
 
     void Start()
     {
@@ -29,9 +28,14 @@ public class InteractionCamera : MonoBehaviour
 
     public void DisplayObject(InteractionObject interactionObject)
     {
+        // Run world behaviors resulting from interaction
+        interactionObject.onInteractionBegin.Invoke(interactionObject);
+
         if (interactionObject.objectDialog != null)
             dialog.SetDialogQueue(interactionObject.objectDialog);
         dialog.DisplayNextCard();
+
+        GameObject currentInspectedObject = null;
 
         if (interactionObject.isInspectable)
         {
@@ -40,16 +44,16 @@ public class InteractionCamera : MonoBehaviour
             currentInspectedObject = (GameObject)Instantiate(interactionObject.gameObject, this.transform.position, Quaternion.Euler(interactionObject.interactionRotation));
             currentInspectedObject.transform.parent = this.transform;
 
-            PlaceObjectToFit();
+            PlaceObjectToFit(currentInspectedObject);
 
             camera.enabled = true;
             cameraGrayscale.effectAmount = 1;
         }
 
-        StartCoroutine(CloseInteractionCamera(interactionObject.interactionObjects));
+        StartCoroutine(CloseInteractionCamera(interactionObject, currentInspectedObject));
     }
 
-    void PlaceObjectToFit()
+    void PlaceObjectToFit(GameObject currentInspectedObject)
     {
         // Don't question the math
         var size = Vector3.Scale(currentInspectedObject.GetComponent<MeshFilter>().mesh.bounds.size, currentInspectedObject.transform.localScale);
@@ -83,8 +87,11 @@ public class InteractionCamera : MonoBehaviour
         currentInspectedObject.transform.position = this.transform.position + this.transform.forward * distance;
     }
 
-    IEnumerator RotateObjectCoroutine()
+    IEnumerator RotateObjectCoroutine(GameObject currentInspectedObject)
     {
+        if (currentInspectedObject == null)
+            yield break;
+
         while (true)
         {
             while (Input.GetMouseButton(0))
@@ -102,11 +109,11 @@ public class InteractionCamera : MonoBehaviour
         }
     }
 
-    IEnumerator CloseInteractionCamera(GameObject[] interactionObjects)
+    IEnumerator CloseInteractionCamera(InteractionObject obj, GameObject currentInspectedObject)
     {
         Coroutine rotateCoroutine = null;
         if(currentInspectedObject != null)
-            rotateCoroutine = StartCoroutine(RotateObjectCoroutine());
+            rotateCoroutine = StartCoroutine(RotateObjectCoroutine(currentInspectedObject));
 
         while (dialog.IsDisplaying())
             yield return null;
@@ -118,9 +125,10 @@ public class InteractionCamera : MonoBehaviour
         cameraGrayscale.effectAmount = 0;
 
         // Run world behaviors resulting from interaction
-        foreach (GameObject target in interactionObjects)
-            target.SendMessage("RunBehavior");
+        obj.onInteractionEnd.Invoke(obj);
 
         Destroy(currentInspectedObject);
+        if (obj.deleteAfterUse)
+            Destroy(obj.gameObject);
     }
 }
