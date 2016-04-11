@@ -17,6 +17,7 @@ public class PlayerMovementWASD : MonoBehaviour {
 	}
 
 	public void Move(float horizontal, float vertical){
+
 		if (horizontal == 0 && vertical == 0) {
 			anim.SetBool("Moving", false);
 		} else {
