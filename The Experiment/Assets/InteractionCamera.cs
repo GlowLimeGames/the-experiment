@@ -39,8 +39,6 @@ public class InteractionCamera : MonoBehaviour
 
         if (interactionObject.isInspectable)
         {
-            interactionObject.isUseable = false;
-
             currentInspectedObject = (GameObject)Instantiate(interactionObject.gameObject, this.transform.position, Quaternion.Euler(interactionObject.interactionRotation));
             currentInspectedObject.transform.parent = this.transform;
 
@@ -123,6 +121,9 @@ public class InteractionCamera : MonoBehaviour
 
         camera.enabled = false;
         cameraGrayscale.effectAmount = 0;
+
+        if (obj.disableAfterUse)
+            obj.isUseable = false;
 
         // Run world behaviors resulting from interaction
         obj.onInteractionEnd.Invoke(obj);

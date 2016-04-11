@@ -21,6 +21,7 @@ public class StartRoomScript : MonoBehaviour
     public GameObject dialogueInstructions;
     public GameObject mouseInstructions;
     public GameObject moveInstructions;
+    public GameObject inspectInstructions;
     public InteractionObject keyRat;
 
     private CameraFollow cameraControl;
@@ -47,6 +48,7 @@ public class StartRoomScript : MonoBehaviour
         dialogueInstructions.SetActive(true);
         mouseInstructions.SetActive(false);
         moveInstructions.SetActive(false);
+        inspectInstructions.SetActive(false);
 
         int tolstoyIndex = 0; // TolstoyDialog.Length - 1;
         int teaganIndex = 0; // TeaganDialog.Length - 1;
@@ -106,7 +108,7 @@ public class StartRoomScript : MonoBehaviour
         while (!keyRat.Clicked)
             yield return null;
 
-        dialogueInstructions.SetActive(true);
+        inspectInstructions.SetActive(true);
         mouseInstructions.SetActive(false);
         
         while (dialog.IsDisplaying())
@@ -114,7 +116,7 @@ public class StartRoomScript : MonoBehaviour
 
         cageAnimator.SetBool("Open", true);
 
-        dialogueInstructions.SetActive(false);
+        inspectInstructions.SetActive(false);
         moveInstructions.SetActive(true);
 
         cameraControl.target = TeaganControlFocus;
