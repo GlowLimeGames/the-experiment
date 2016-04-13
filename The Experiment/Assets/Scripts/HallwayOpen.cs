@@ -7,11 +7,13 @@ public class HallwayOpen : MonoBehaviour
     public DialogCard keycardNotFoundDialog;
     public DialogCard keycardFoundDialog;
 
-    bool keycardFound = false;
+    private bool keycardFound = false;
+    private Grayscale grayscale;
 
     public void FoundKeycard(InteractionObject obj)
     {
         keycardFound = true;
+        grayscale = GameObject.FindObjectOfType<Grayscale>();
     }
 
     public void GoToHallwayBegin(InteractionObject obj)
@@ -25,7 +27,24 @@ public class HallwayOpen : MonoBehaviour
     {
         if(keycardFound)
         {
-            SceneManager.LoadScene("FirstHallway");
+            StartCoroutine(ExitToHallwayCoroutine());
+            
         }
+    }
+
+    IEnumerator ExitToHallwayCoroutine()
+    {
+        float initialRampOffset = grayscale.rampOffset;
+        float time = 3f;
+
+        for (float t = 0, p = 0; t < time; t += Time.deltaTime, p = t / time)
+        {
+            grayscale.rampOffset = Mathf.Lerp(initialRampOffset, -1, p);
+            grayscale.effectAmount = Mathf.Lerp(0, 1, p);
+            yield return null;
+        }
+
+        // Go to main menu for demo
+        SceneManager.LoadScene("MainMenu");
     }
 }

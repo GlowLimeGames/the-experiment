@@ -23,7 +23,7 @@ public class InteractionCamera : MonoBehaviour
 
     public bool IsDisplaying()
     {
-        return camera.enabled;
+        return camera.enabled || dialog.IsDisplaying();
     }
 
     public void DisplayObject(InteractionObject interactionObject)

@@ -41,7 +41,7 @@ public class InteractionObject : MonoBehaviour
     }
 
     float DistanceToPlayer { get { return (player.transform.position - this.transform.position).magnitude; } }
-    bool CanInteract { get { return isUseable && DistanceToPlayer < interactionDistance; } }
+    bool CanInteract { get { return isUseable && DistanceToPlayer < interactionDistance && !interactionCamera.IsDisplaying(); } }
 
     void OnMouseOver()
     {
@@ -56,7 +56,7 @@ public class InteractionObject : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (CanInteract && !interactionCamera.IsDisplaying())
+        if (CanInteract)
         {
             interactionCamera.DisplayObject(this);
             Clicked = true;

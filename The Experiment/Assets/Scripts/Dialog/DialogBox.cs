@@ -24,6 +24,7 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler
     private float charactersShowing = 0f;
     private bool allTextDisplayed = false;
     private bool colorTagOpen = false;
+    private KeyCode advanceCode = KeyCode.Space;
 
     void Awake()
     {
@@ -39,10 +40,10 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler
     void Update()
     {
         // Sub with actual use key
-        if (Input.GetKeyDown(KeyCode.F) && allTextDisplayed)
+        if (Input.GetKeyDown(advanceCode) && allTextDisplayed)
         {
             allTextDisplayed = false;
-            DisplayNextCard();
+            DisplayNextCard();            
         }
     }
 
@@ -143,7 +144,7 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler
             int charactersInLastFrame = Mathf.FloorToInt(charactersShowing);
             string textToDisplay = "";
 
-            if (Input.GetKey(KeyCode.F))
+            if (Input.GetKey(advanceCode))
             { // If player is holding Action, double the speed at which text appears
                 speedMultiplier = 2;
             }

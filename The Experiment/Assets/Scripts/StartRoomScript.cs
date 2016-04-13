@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 // Controls events in the starting room
-public class StartRoomScript : MonoBehaviour 
+public class StartRoomScript : MonoBehaviour
 {
     public DialogCard[] TolstoyDialog;
     public CameraTarget TolstoyFocus;
@@ -26,8 +26,9 @@ public class StartRoomScript : MonoBehaviour
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
-    
-	void Start () 
+    private Grayscale grayscale;
+
+    void Start()
     {
         // Since they're taking turns, enforce this
         if (TolstoyDialog.Length - TeaganDialog.Length > 1)
@@ -36,25 +37,42 @@ public class StartRoomScript : MonoBehaviour
         // These are probably going to be uniqe so grab them this way
         cameraControl = Object.FindObjectOfType<CameraFollow>();
         dialog = Object.FindObjectOfType<DialogBox>();
+        grayscale = Object.FindObjectOfType<Grayscale>();
 
         StartCoroutine(StartRoomCoroutine());
-	}
+    }
 
     IEnumerator StartRoomCoroutine()
     {
         cameraControl.target = TeaganSpeachFocus;
         cameraControl.JumpToTarget();
 
-        dialogueInstructions.SetActive(true);
+        dialogueInstructions.SetActive(false);
         mouseInstructions.SetActive(false);
         moveInstructions.SetActive(false);
         inspectInstructions.SetActive(false);
 
+        float initialRampOffset = grayscale.rampOffset;
+        grayscale.rampOffset = -1;
+        grayscale.effectAmount = 1;
+
+        yield return new WaitForSeconds(1);
+
+        float time = 3f;
+        for (float t = 0, p = 0f; t < time; t += Time.deltaTime, p = t / time)
+        {
+            grayscale.rampOffset = Mathf.Lerp(-1, initialRampOffset, p);
+            grayscale.effectAmount = Mathf.Lerp(1, 0, p);
+            yield return null;
+        }
+
+        dialogueInstructions.SetActive(true);
+
         int tolstoyIndex = 0; // TolstoyDialog.Length - 1;
         int teaganIndex = 0; // TeaganDialog.Length - 1;
-        while(tolstoyIndex < TolstoyDialog.Length)
+        while (tolstoyIndex < TolstoyDialog.Length)
         {
-            if(tolstoyIndex >= tolstoyRevealIndex)
+            if (tolstoyIndex >= tolstoyRevealIndex)
                 cameraControl.target = TolstoyFocus;
 
             dialog.SetDialogQueue(SplitCard(TolstoyDialog[tolstoyIndex]));
@@ -64,12 +82,13 @@ public class StartRoomScript : MonoBehaviour
             while (dialog.IsDisplaying())
             {
 #if UNITY_EDITOR
-                // Cheat - space to exit
-                if (Input.GetKeyDown(KeyCode.Space))
+                // Cheat - F to exit
+                if (Input.GetKeyDown(KeyCode.F))
                 {
                     dialog.StopAllCoroutines();
                     dialog.CleanDialogGUI();
                     cameraControl.target = TeaganControlFocus;
+                    cageAnimator.SetBool("Open", true);
                     yield break;
                 }
 #endif
@@ -86,12 +105,13 @@ public class StartRoomScript : MonoBehaviour
                 while (dialog.IsDisplaying())
                 {
 #if UNITY_EDITOR
-                    // Cheat - space to exit
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    // Cheat - F to exit
+                    if (Input.GetKeyDown(KeyCode.F))
                     {
                         dialog.StopAllCoroutines();
                         dialog.CleanDialogGUI();
                         cameraControl.target = TeaganControlFocus;
+                        cageAnimator.SetBool("Open", true);
                         yield break;
                     }
 #endif
@@ -110,7 +130,7 @@ public class StartRoomScript : MonoBehaviour
 
         inspectInstructions.SetActive(true);
         mouseInstructions.SetActive(false);
-        
+
         while (dialog.IsDisplaying())
             yield return null;
 
