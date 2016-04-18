@@ -31,7 +31,7 @@ public class LevelWarp : MonoBehaviour {
 		}
 	}
 
-	void RunBehavior () {
+	public void RunBehavior () {
 		StartCoroutine ("WarpTransition");
 	}
 
