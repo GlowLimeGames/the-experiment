@@ -28,16 +28,13 @@ public class HallwayOpen : MonoBehaviour
         if(keycardFound)
         {
             StartCoroutine(ExitToHallwayCoroutine());
-            
         }
     }
 
     IEnumerator ExitToHallwayCoroutine()
     {
         float initialRampOffset = grayscale.rampOffset;
-        float time = 3f;
-
-        for (float t = 0, p = 0; t < time; t += Time.deltaTime, p = t / time)
+        for (float t = 0, p = 0,  time = 3f; t < time; t += Time.deltaTime, p = t / time)
         {
             grayscale.rampOffset = Mathf.Lerp(initialRampOffset, -1, p);
             grayscale.effectAmount = Mathf.Lerp(0, 1, p);
@@ -45,6 +42,6 @@ public class HallwayOpen : MonoBehaviour
         }
 
         // Go to main menu for demo
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("FirstHallway");
     }
 }
