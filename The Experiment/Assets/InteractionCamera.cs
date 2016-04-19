@@ -39,7 +39,7 @@ public class InteractionCamera : MonoBehaviour
 
         if (interactionObject.isInspectable)
         {
-            currentInspectedObject = (GameObject)Instantiate(interactionObject.gameObject, this.transform.position, Quaternion.Euler(interactionObject.interactionRotation));
+            currentInspectedObject = (GameObject)Instantiate(interactionObject.objectToInspect, this.transform.position, Quaternion.Euler(interactionObject.interactionRotation));
             currentInspectedObject.transform.parent = this.transform;
 
             PlaceObjectToFit(currentInspectedObject);

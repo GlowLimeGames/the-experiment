@@ -22,6 +22,9 @@ public class InteractionObject : MonoBehaviour
     // The minimum distance at which the player can interact with this object
     public float interactionDistance = 4f;
 
+    // Put a prefab here if you want to use another object as the inspected object
+    public GameObject objectToInspect;
+
     // Events that that trigger at the start and end of an interaction
     public ObjectInteractionEvent onInteractionBegin;
     public ObjectInteractionEvent onInteractionEnd;
@@ -38,6 +41,9 @@ public class InteractionObject : MonoBehaviour
         materials = GetComponent<MeshRenderer>().materials;
         SetHoverEffect(false);
         interactionCamera = FindObjectOfType<InteractionCamera>();
+
+        if (objectToInspect == null)
+            objectToInspect = this.gameObject;
     }
 
     float DistanceToPlayer { get { return (player.transform.position - this.transform.position).magnitude; } }
