@@ -10,6 +10,9 @@ public class CameraTarget : MonoBehaviour
     [Tooltip("Should the camera always be behind the target?")]
     public bool followBehind;
 
+    [Tooltip("Should the camera always be in front of the target?")]
+    public bool followFront;
+
     [Tooltip("Whether we can manipulate the camera while looking at this target.")]
     public bool controllable;
 
@@ -28,6 +31,7 @@ public class CameraTarget : MonoBehaviour
     public Vector3 GetTargetCameraPosition()
     {
         if (followBehind) phi = Mathf.Atan2(this.transform.forward.z, this.transform.forward.x) + Mathf.PI;
+        if (followFront) phi = Mathf.Atan2(this.transform.forward.z, this.transform.forward.x);
 
         float x = rho * Mathf.Sin(theta) * Mathf.Cos(phi);
         float y = rho * Mathf.Cos(theta);
