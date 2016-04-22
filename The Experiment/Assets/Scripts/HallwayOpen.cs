@@ -10,9 +10,11 @@ public class HallwayOpen : MonoBehaviour
     private bool keycardFound = false;
     private Grayscale grayscale;
     private ConversationManager convoManager;
+    private AudioSource audio;
 
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         grayscale = FindObjectOfType<Grayscale>();
         convoManager = FindObjectOfType<ConversationManager>();
     }
@@ -44,6 +46,8 @@ public class HallwayOpen : MonoBehaviour
     IEnumerator ExitToHallwayCoroutine()
     {
         yield return convoManager.RunConversation(keycardFoundConvo);
+
+        audio.Play();
 
         // Fade out
         yield return grayscale.Fade(true, 3f);

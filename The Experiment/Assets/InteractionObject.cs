@@ -15,6 +15,9 @@ public class InteractionObject : MonoBehaviour
     public Vector3 interactionRotation;
     public DialogCard objectDialog;
     public Conversation objectConversation;
+
+    public AudioClip pickupSound;
+    public AudioClip replaceSound;
     
     public bool isUseable = true;
     public bool disableAfterUse = true;
@@ -35,6 +38,7 @@ public class InteractionObject : MonoBehaviour
     private Material[] materials;
     private InteractionCamera interactionCamera;
     private GameObject player;
+    private AudioSource audio;
 
     void Start()
     {
@@ -42,6 +46,8 @@ public class InteractionObject : MonoBehaviour
         materials = GetComponent<MeshRenderer>().materials;
         SetHoverEffect(false);
         interactionCamera = FindObjectOfType<InteractionCamera>();
+        audio = GetComponent<AudioSource>();
+        if (audio == null) audio = gameObject.AddComponent<AudioSource>();
 
         if (objectToInspect == null)
             objectToInspect = this.gameObject;
@@ -70,6 +76,12 @@ public class InteractionObject : MonoBehaviour
             SetHoverEffect(false);
             if (disableAfterUse)
                 isUseable = false;
+
+            if (pickupSound != null)
+            {
+                audio.clip = pickupSound;
+                audio.Play();
+            }
         }
     }
 
@@ -78,5 +90,14 @@ public class InteractionObject : MonoBehaviour
         foreach (Material material in materials)
             if (material.HasProperty("_OverlayAmt"))
                 material.SetFloat("_OverlayAmt", enabled ? 0.2f : 0f);
+    }
+
+    public void PutDown()
+    {
+        if (replaceSound != null)
+        {
+            audio.clip = replaceSound;
+            audio.Play();
+        }
     }
 }

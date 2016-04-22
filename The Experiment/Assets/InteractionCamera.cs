@@ -139,5 +139,7 @@ public class InteractionCamera : MonoBehaviour
         Destroy(currentInspectedObject);
         if (obj.deleteAfterUse)
             Destroy(obj.gameObject);
+
+        obj.PutDown();
     }
 }

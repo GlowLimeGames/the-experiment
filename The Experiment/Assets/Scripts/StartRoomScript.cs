@@ -23,6 +23,7 @@ public class StartRoomScript : MonoBehaviour
     public GameObject moveInstructions;
     public GameObject inspectInstructions;
     public InteractionObject keyRat;
+    public AudioSource cageDoorOpenSound;
 
     private CameraFollow cameraControl;
     private DialogBox dialog;
@@ -89,6 +90,7 @@ public class StartRoomScript : MonoBehaviour
                     dialog.CleanDialogGUI();
                     cameraControl.target = TeaganControlFocus;
                     cageAnimator.SetBool("Open", true);
+                    cageDoorOpenSound.Play();
                     yield break;
                 }
 #endif
@@ -112,6 +114,7 @@ public class StartRoomScript : MonoBehaviour
                         dialog.CleanDialogGUI();
                         cameraControl.target = TeaganControlFocus;
                         cageAnimator.SetBool("Open", true);
+                        cageDoorOpenSound.Play();
                         yield break;
                     }
 #endif
@@ -135,6 +138,7 @@ public class StartRoomScript : MonoBehaviour
             yield return null;
 
         cageAnimator.SetBool("Open", true);
+        cageDoorOpenSound.Play();
 
         inspectInstructions.SetActive(false);
         moveInstructions.SetActive(true);
