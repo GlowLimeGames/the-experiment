@@ -32,8 +32,14 @@ public class InteractionCamera : MonoBehaviour
         interactionObject.onInteractionBegin.Invoke(interactionObject);
 
         if (interactionObject.objectDialog != null)
+        {
             dialog.SetDialogQueue(interactionObject.objectDialog);
-        dialog.DisplayNextCard();
+            dialog.DisplayNextCard();
+        }
+        else if(interactionObject.objectConversation != null)
+        {
+            FindObjectOfType<ConversationManager>().RunConversation(interactionObject.objectConversation);
+        }
 
         GameObject currentInspectedObject = null;
 
@@ -113,7 +119,9 @@ public class InteractionCamera : MonoBehaviour
         if(currentInspectedObject != null)
             rotateCoroutine = StartCoroutine(RotateObjectCoroutine(currentInspectedObject));
 
-        while (dialog.IsDisplaying())
+        var conversationManager = FindObjectOfType<ConversationManager>();
+
+        while (dialog.IsDisplaying() || conversationManager.IsInProgress)
             yield return null;
 
         if(rotateCoroutine != null)

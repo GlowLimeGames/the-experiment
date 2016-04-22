@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class Conversation : ScriptableObject
 {
     public bool teaganGoesFirst = false;
+    public bool alignCharacters = true;
     public DialogCard[] teagan;
     public DialogCard[] tolstoy;
     

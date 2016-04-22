@@ -10,6 +10,8 @@ public class ConversationManager : MonoBehaviour
     public CameraTarget teaganTarget;
     public CameraTarget tolstoyTarget;
 
+    public bool IsInProgress { private set; get; }
+
     private CameraFollow camera;
     private DialogBox dialog;
 
@@ -26,7 +28,9 @@ public class ConversationManager : MonoBehaviour
 
     private IEnumerator RunConversationCoroutine(Conversation conversation)
     {
-        Coroutine alignCoroutine = StartCoroutine(AlignCharactersCoroutine());
+        IsInProgress = true;
+
+        Coroutine alignCoroutine = conversation.alignCharacters ? StartCoroutine(AlignCharactersCoroutine()) : null;
 
         // Jump camera at start of conversation -- the shift can be too much otherwise.
         bool haveJumpedCamera = false;
@@ -55,8 +59,11 @@ public class ConversationManager : MonoBehaviour
             yield return null;
         }
 
-        StopCoroutine(alignCoroutine);
+        if (alignCoroutine != null)
+            StopCoroutine(alignCoroutine);
         camera.target = teaganFollowTarget;
+
+        IsInProgress = false;
     }
 
     private IEnumerator AlignCharactersCoroutine()

@@ -14,6 +14,7 @@ public class InteractionObject : MonoBehaviour
 
     public Vector3 interactionRotation;
     public DialogCard objectDialog;
+    public Conversation objectConversation;
     
     public bool isUseable = true;
     public bool disableAfterUse = true;

@@ -11,6 +11,8 @@ public class LevelWarp : MonoBehaviour
     public AudioEchoFilter pastEcho;
     public AudioLowPassFilter pastDampening;
 
+    public Conversation jumpToPastConvo;
+
     private Vector3 difference;
     private Camera camera;
     private GameObject player;
@@ -36,31 +38,38 @@ public class LevelWarp : MonoBehaviour
         if (player == null)
             throw new UnassignedReferenceException("No player found.");
     }
+
     // For testing purposes
     void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.L))
         {
             StartCoroutine(WarpTransition());
         }
+#endif
     }
 
-    public void Transition()
+    public void TransitionToPast()
     {
-        StartCoroutine(WarpTransition());
+        StartCoroutine(TransitionToPastCoroutine());
+    }
+
+    private IEnumerator TransitionToPastCoroutine()
+    {
+        yield return Transition();
+        yield return new WaitForSeconds(2f);
+        yield return FindObjectOfType<ConversationManager>().RunConversation(jumpToPastConvo);
+    }
+
+    public Coroutine Transition()
+    {
+        return StartCoroutine(WarpTransition());
     }
 
     IEnumerator WarpTransition()
     {
-        for (float t = 0, p = 0, time = 3f; t < time; t += Time.deltaTime, p = t / time)
-        {
-            grayscale.rampOffset = p;
-            grayscale.effectAmount = p;
-            yield return null;
-        }
-
-        bloom.enabled = true;
-        motionBlur.enabled = true;
+        yield return grayscale.Fade(true, 3f, false);
 
         if (!isInThePast)
         {
@@ -68,6 +77,8 @@ public class LevelWarp : MonoBehaviour
             camera.transform.position = camera.transform.position - difference;
             pastEcho.enabled = true;
             pastDampening.enabled = true;
+            bloom.enabled = true;
+            motionBlur.enabled = true;
         }
         else
         {
@@ -75,15 +86,12 @@ public class LevelWarp : MonoBehaviour
             camera.transform.position = camera.transform.position + difference;
             pastEcho.enabled = false;
             pastDampening.enabled = false;
+            bloom.enabled = false;
+            motionBlur.enabled = false;
         }
 
         isInThePast = !isInThePast;
-        
-        for (float t = 0, p = 0, time = 3f; t < time; t += Time.deltaTime, p = t / time)
-        {
-            grayscale.rampOffset = 1 - p;
-            grayscale.effectAmount = 1 - p;
-            yield return null;
-        }
+
+        yield return grayscale.Fade(false, 3f, false);
     }
 }
