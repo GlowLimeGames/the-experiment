@@ -4,42 +4,49 @@ using UnityEngine.SceneManagement;
 
 public class HallwayOpen : MonoBehaviour
 {
-    public DialogCard keycardNotFoundDialog;
-    public DialogCard keycardFoundDialog;
+    public Conversation keycardNotFoundConvo;
+    public Conversation keycardFoundConvo;
 
     private bool keycardFound = false;
     private Grayscale grayscale;
+    private ConversationManager convoManager;
+
+    void Start()
+    {
+        grayscale = FindObjectOfType<Grayscale>();
+        convoManager = FindObjectOfType<ConversationManager>();
+    }
 
     public void FoundKeycard(InteractionObject obj)
     {
         keycardFound = true;
-        grayscale = GameObject.FindObjectOfType<Grayscale>();
     }
 
     public void GoToHallwayBegin(InteractionObject obj)
     {
-        // Modify the dialog to indicate whether the key card has been found or not.
-        obj.objectDialog = keycardFound ? keycardFoundDialog : keycardNotFoundDialog;
+        // Make sure no dialog runs
+        obj.objectDialog = null;
     }
-
-    // Only load hallway if keycard has been found
+        
     public void GoToHallwayEnd(InteractionObject obj)
     {
-        if(keycardFound)
+        // Only load hallway if keycard has been found
+        if (keycardFound)
         {
             StartCoroutine(ExitToHallwayCoroutine());
         }
-    }
+        else
+        {
+            convoManager.RunConversation(keycardNotFoundConvo);
+        }
+    }    
 
     IEnumerator ExitToHallwayCoroutine()
     {
-        float initialRampOffset = grayscale.rampOffset;
-        for (float t = 0, p = 0,  time = 3f; t < time; t += Time.deltaTime, p = t / time)
-        {
-            grayscale.rampOffset = Mathf.Lerp(initialRampOffset, -1, p);
-            grayscale.effectAmount = Mathf.Lerp(0, 1, p);
-            yield return null;
-        }
+        yield return convoManager.RunConversation(keycardFoundConvo);
+
+        // Fade out
+        yield return grayscale.Fade(true, 3f);
 
         // Go to main menu for demo
         SceneManager.LoadScene("FirstHallway");

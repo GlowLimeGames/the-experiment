@@ -3,6 +3,10 @@ using System.Collections;
 
 public class ConversationManager : MonoBehaviour 
 {
+    public GameObject teaganRoot;
+    public GameObject tolstoyRoot;
+
+    public CameraTarget teaganFollowTarget;
     public CameraTarget teaganTarget;
     public CameraTarget tolstoyTarget;
 
@@ -15,13 +19,15 @@ public class ConversationManager : MonoBehaviour
         dialog = FindObjectOfType<DialogBox>();   
 	}
 
-    public void RunConversation(Converstation conversation)
+    public Coroutine RunConversation(Conversation conversation)
     {
-        StartCoroutine(RunConversationCoroutine(conversation));
+        return StartCoroutine(RunConversationCoroutine(conversation));
     }
 
-    private IEnumerator RunConversationCoroutine(Converstation conversation)
+    private IEnumerator RunConversationCoroutine(Conversation conversation)
     {
+        Coroutine alignCoroutine = StartCoroutine(AlignCharactersCoroutine());
+
         foreach(DialogCard card in conversation.Cards())
         {
             if (card is OwnedDialogCard)
@@ -36,6 +42,27 @@ public class ConversationManager : MonoBehaviour
             dialog.DisplayNextCard();
             while (dialog.IsDisplaying())
                 yield return null;
+
+            yield return null;
+        }
+
+        StopCoroutine(alignCoroutine);
+        camera.target = teaganFollowTarget;
+    }
+
+    private IEnumerator AlignCharactersCoroutine()
+    {
+        while (true)
+        {
+            Vector3 center = (teaganRoot.transform.position + tolstoyRoot.transform.position) / 2;
+
+            center.y = teaganRoot.transform.position.y;
+            teaganRoot.transform.rotation = Quaternion.Lerp(teaganRoot.transform.rotation, Quaternion.LookRotation(center - teaganRoot.transform.position), 0.1f);
+
+            center.y = tolstoyRoot.transform.position.y;
+            tolstoyRoot.transform.rotation = Quaternion.Lerp(tolstoyRoot.transform.rotation, Quaternion.LookRotation(center - tolstoyRoot.transform.position), 0.1f);
+
+            yield return null;
         }
     }
 }

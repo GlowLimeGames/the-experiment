@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 [CreateAssetMenu()]
-public class Converstation : ScriptableObject
+public class Conversation : ScriptableObject
 {
     public bool teaganGoesFirst = false;
     public DialogCard[] teagan;
     public DialogCard[] tolstoy;
     
-    //
+    // Returns all the cards in the order they're supposed to go in.
     public IEnumerable<DialogCard> Cards()
     {
         Queue<DialogCard> cards = new Queue<DialogCard>();
@@ -22,7 +22,7 @@ public class Converstation : ScriptableObject
             idx1 = 1;
         }
 
-        while (idx2 < tolstoy.Length || idx1 < tolstoy.Length)
+        while (idx2 < tolstoy.Length || idx1 < teagan.Length)
         {
             if (idx2 < tolstoy.Length)
             {
@@ -30,7 +30,7 @@ public class Converstation : ScriptableObject
                 idx2++;
             }
 
-            if (idx1 < tolstoy.Length)
+            if (idx1 < teagan.Length)
             {
                 yield return teagan[idx1];
                 idx1++;

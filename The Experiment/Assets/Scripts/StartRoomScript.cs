@@ -75,7 +75,7 @@ public class StartRoomScript : MonoBehaviour
             if (tolstoyIndex >= tolstoyRevealIndex)
                 cameraControl.target = TolstoyFocus;
 
-            dialog.SetDialogQueue(SplitCard(TolstoyDialog[tolstoyIndex]));
+            dialog.SetDialogQueue(TolstoyDialog[tolstoyIndex]);
             dialog.DisplayNextCard();
             tolstoyIndex++;
 
@@ -98,7 +98,7 @@ public class StartRoomScript : MonoBehaviour
             if (teaganIndex < TeaganDialog.Length)
             {
                 cameraControl.target = TeaganSpeachFocus;
-                dialog.SetDialogQueue(SplitCard(TeaganDialog[teaganIndex]));
+                dialog.SetDialogQueue(TeaganDialog[teaganIndex]);
                 dialog.DisplayNextCard();
                 teaganIndex++;
 
@@ -144,20 +144,5 @@ public class StartRoomScript : MonoBehaviour
         yield return new WaitForSeconds(8f);
 
         moveInstructions.SetActive(false);
-    }
-
-    private DialogCard[] SplitCard(DialogCard card)
-    {
-        string[] parts = card.dialog.Split('\n');
-        DialogCard[] cards = new DialogCard[parts.Length];
-
-        for (int i = 0; i < parts.Length; i++)
-        {
-            cards[i] = new DialogCard(card.textSpeed, parts[i]);
-            cards[i].textColor = card.textColor;
-            cards[i].backgroundColor = card.backgroundColor;
-        }
-
-        return cards;
     }
 }
