@@ -28,6 +28,9 @@ public class ConversationManager : MonoBehaviour
     {
         Coroutine alignCoroutine = StartCoroutine(AlignCharactersCoroutine());
 
+        // Jump camera at start of conversation -- the shift can be too much otherwise.
+        bool haveJumpedCamera = false;
+
         foreach(DialogCard card in conversation.Cards())
         {
             if (card is OwnedDialogCard)
@@ -36,6 +39,12 @@ public class ConversationManager : MonoBehaviour
                     camera.target = teaganTarget;
                 else
                     camera.target = tolstoyTarget;
+
+                if (!haveJumpedCamera)
+                {
+                    camera.JumpToTarget();
+                    haveJumpedCamera = true;
+                }
             }
 
             dialog.SetDialogQueue(card);
