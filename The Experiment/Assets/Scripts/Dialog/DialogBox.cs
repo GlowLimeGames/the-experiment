@@ -144,11 +144,6 @@ public class DialogBox : MonoBehaviour, IEventSystemHandler
             int charactersInLastFrame = Mathf.FloorToInt(charactersShowing);
             string textToDisplay = "";
 
-            if (Input.GetKey(advanceCode))
-            { // If player is holding Action, double the speed at which text appears
-                speedMultiplier = 2;
-            }
-
             charactersShowing += Time.deltaTime * card.textSpeed * speedMultiplier / 60f;
 
             int locationOfColorSymbol = card.dialog.Substring(charactersInLastFrame,
