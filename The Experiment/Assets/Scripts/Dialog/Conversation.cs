@@ -7,6 +7,7 @@ public class Conversation : ScriptableObject
 {
     public bool teaganGoesFirst = false;
     public bool alignCharacters = true;
+    public bool controlCamera = true;
     public DialogCard[] teagan;
     public DialogCard[] tolstoy;
     

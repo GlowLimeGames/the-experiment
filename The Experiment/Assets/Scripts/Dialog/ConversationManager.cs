@@ -7,10 +7,10 @@ public class ConversationManager : MonoBehaviour
     public GameObject tolstoyRoot;
 
     public CameraTarget teaganFollowTarget;
-    public CameraTarget teaganTarget;
-    public CameraTarget tolstoyTarget;
 
-    public CameraTarget conversationTarget;
+    // Prefab
+    public CameraTarget conversationTargetPrefab;
+    private CameraTarget conversationTarget;
 
     public bool IsInProgress { private set; get; }
 
@@ -19,6 +19,7 @@ public class ConversationManager : MonoBehaviour
 
 	void Start () 
     {
+        conversationTarget = Instantiate<GameObject>(conversationTargetPrefab.gameObject).GetComponent<CameraTarget>();
         camera = FindObjectOfType<CameraFollow>();
         dialog = FindObjectOfType<DialogBox>();   
 	}
@@ -34,25 +35,11 @@ public class ConversationManager : MonoBehaviour
 
         Coroutine alignCoroutine = conversation.alignCharacters ? StartCoroutine(AlignCharactersCoroutine()) : null;
 
-        // Jump camera at start of conversation -- the shift can be too much otherwise.
-        bool haveJumpedCamera = false;
-
+        if (conversation.controlCamera)
+            camera.target = conversationTarget;
+        
         foreach(DialogCard card in conversation.Cards())
         {
-            if (card is OwnedDialogCard)
-            {
-                if((card as OwnedDialogCard).isTeagan)
-                    camera.target = teaganTarget;
-                else
-                    camera.target = tolstoyTarget;
-
-                if (!haveJumpedCamera)
-                {
-                    camera.JumpToTarget();
-                    haveJumpedCamera = true;
-                }
-            }
-
             dialog.SetDialogQueue(card);
             dialog.DisplayNextCard();
             while (dialog.IsDisplaying())
@@ -73,6 +60,12 @@ public class ConversationManager : MonoBehaviour
         while (true)
         {
             Vector3 center = (teaganRoot.transform.position + tolstoyRoot.transform.position) / 2;
+
+            // Place the camera between Teagan and Tolstoy, but not more than 2 units away from Teagan
+            Ray r = new Ray(teaganRoot.transform.position, center - teaganRoot.transform.position);
+            float distance = Mathf.Min(2f, (center - teaganRoot.transform.position).magnitude);
+            conversationTarget.transform.position = r.GetPoint(distance);
+            conversationTarget.transform.rotation = Quaternion.LookRotation(Vector3.Cross(center - teaganRoot.transform.position, Vector3.up));
 
             center.y = teaganRoot.transform.position.y;
             teaganRoot.transform.rotation = Quaternion.Lerp(teaganRoot.transform.rotation, Quaternion.LookRotation(center - teaganRoot.transform.position), 0.1f);
