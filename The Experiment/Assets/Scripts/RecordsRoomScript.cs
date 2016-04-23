@@ -29,7 +29,7 @@ public class RecordsRoomScript : MonoBehaviour
         yield return grayscale.Fade(false, 3f);
 
         // Let the player wander for a bit, then play the conversation
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
 
         var conversationManager = FindObjectOfType<ConversationManager>();
         conversationManager.RunConversation(enterRoomConvo);
