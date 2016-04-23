@@ -91,7 +91,7 @@ public class InteractionCamera : MonoBehaviour
         currentInspectedObject.transform.position = this.transform.position + this.transform.forward * distance;
     }
 
-    IEnumerator RotateObjectCoroutine(GameObject currentInspectedObject)
+    IEnumerator RotateObjectCoroutine(GameObject currentInspectedObject, InteractionObject interactionObject)
     {
         if (currentInspectedObject == null)
             yield break;
@@ -109,6 +109,10 @@ public class InteractionCamera : MonoBehaviour
                 yield return null;
             }
 
+            Quaternion currentRot = currentInspectedObject.transform.rotation;
+            Quaternion targetRot = Quaternion.Euler(interactionObject.interactionRotation);
+            currentInspectedObject.transform.rotation = Quaternion.Lerp(currentRot, targetRot, 0.1f);
+
             yield return null;
         }
     }
@@ -116,8 +120,8 @@ public class InteractionCamera : MonoBehaviour
     IEnumerator CloseInteractionCamera(InteractionObject obj, GameObject currentInspectedObject)
     {
         Coroutine rotateCoroutine = null;
-        if(currentInspectedObject != null)
-            rotateCoroutine = StartCoroutine(RotateObjectCoroutine(currentInspectedObject));
+        if (currentInspectedObject != null)
+            rotateCoroutine = StartCoroutine(RotateObjectCoroutine(currentInspectedObject, obj));
 
         var conversationManager = FindObjectOfType<ConversationManager>();
 

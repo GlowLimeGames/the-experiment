@@ -6,12 +6,9 @@ public class LevelWarp : MonoBehaviour
 {
     public GameObject normalRoom;
     public GameObject pastRoom;
-
-    // Audio filters should be placed on whatever has the audio listener (Main Camera)
-    public AudioEchoFilter pastEcho;
-    public AudioLowPassFilter pastDampening;
-
     public Conversation jumpToPastConvo;
+    public AudioSource presentMusicSource;
+    public AudioSource pastMusicSource;
 
     private Vector3 difference;
     private Camera camera;
@@ -30,9 +27,9 @@ public class LevelWarp : MonoBehaviour
 
         bloom.enabled = false;
         motionBlur.enabled = false;
-
         isInThePast = false;
         difference = normalRoom.transform.position - pastRoom.transform.position;
+        pastMusicSource.volume = 0;
 
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
@@ -73,19 +70,21 @@ public class LevelWarp : MonoBehaviour
 
         if (!isInThePast)
         {
+            StartCoroutine(LerpAudioSourceVolume(presentMusicSource, 0, 3f));
+            StartCoroutine(LerpAudioSourceVolume(pastMusicSource, 1, 3f));
+
             player.transform.position = player.transform.position - difference;
             camera.transform.position = camera.transform.position - difference;
-            pastEcho.enabled = true;
-            pastDampening.enabled = true;
             bloom.enabled = true;
             motionBlur.enabled = true;
         }
         else
         {
+            StartCoroutine(LerpAudioSourceVolume(presentMusicSource, 0.5f, 3f));
+            StartCoroutine(LerpAudioSourceVolume(pastMusicSource, 0, 3f));
+
             player.transform.position = player.transform.position + difference;
             camera.transform.position = camera.transform.position + difference;
-            pastEcho.enabled = false;
-            pastDampening.enabled = false;
             bloom.enabled = false;
             motionBlur.enabled = false;
         }
@@ -93,5 +92,15 @@ public class LevelWarp : MonoBehaviour
         isInThePast = !isInThePast;
 
         yield return grayscale.Fade(false, 3f, false);
+    }
+
+    private IEnumerator LerpAudioSourceVolume(AudioSource source, float endVolume, float time)
+    {
+        float startVolume = source.volume;
+        for (float t = 0, p = 0; t < time; t += Time.deltaTime, p = t / time)
+        {
+            source.volume = Mathf.Lerp(startVolume, endVolume, p);
+            yield return null;
+        }
     }
 }

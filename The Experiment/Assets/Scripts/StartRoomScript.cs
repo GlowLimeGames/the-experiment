@@ -145,7 +145,7 @@ public class StartRoomScript : MonoBehaviour
 
         cameraControl.target = TeaganControlFocus;
 
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(15f);
 
         moveInstructions.SetActive(false);
     }

@@ -6,12 +6,7 @@ public class HallwayScript : MonoBehaviour
     public Transform startRoomSpawnLocation;
     public Transform recordsRoomSpawnLocation;
     public Conversation enterHallwayConvo;
-
-    void Start()
-    {
-        PlacePlayerAtStartRoomDoor();
-    }
-    
+        
     public void PlacePlayerAtStartRoomDoor()
     {
         StartCoroutine(PlacePlayerAtStartRoomDoorCoroutine());
