@@ -6,19 +6,18 @@ public class RecordsRoomScript : MonoBehaviour
 {
     public int numberOfPapers;
     public Conversation enterRoomConvo;
-    public Conversation foundHalfRecordsConvo;
     public Conversation foundAllRecordsConvo;
     public DialogCard exitNotAllowed;
     public DialogCard exitAllowed;
     public AudioSource presentMusicSource;
     public AudioSource pastMusicSource;
+    public Renderer doorRenderer;
+    public Material doorLightMaterial;
 
     private ConversationManager conversationManager;
-    private int numberOfPapersHalfway;
 
     void Start()
     {
-        numberOfPapersHalfway = numberOfPapers / 2;
         conversationManager = FindObjectOfType<ConversationManager>();
         StartCoroutine(EnterRoomCoroutine());
     }
@@ -39,11 +38,11 @@ public class RecordsRoomScript : MonoBehaviour
     {
         numberOfPapers--;
 
-        if (numberOfPapers == numberOfPapersHalfway)
-            conversationManager.RunConversation(foundHalfRecordsConvo);
-
         if (numberOfPapers == 0)
+        {
             conversationManager.RunConversation(foundAllRecordsConvo);
+            doorRenderer.material = doorLightMaterial;
+        }
     }
 
     public void AttemptExitStart(InteractionObject obj)

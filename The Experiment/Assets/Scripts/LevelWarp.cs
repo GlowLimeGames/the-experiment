@@ -55,7 +55,6 @@ public class LevelWarp : MonoBehaviour
     private IEnumerator TransitionToPastCoroutine()
     {
         yield return Transition();
-        yield return new WaitForSeconds(2f);
         yield return FindObjectOfType<ConversationManager>().RunConversation(jumpToPastConvo);
     }
 
