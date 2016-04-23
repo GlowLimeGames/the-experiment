@@ -10,6 +10,8 @@ public class ConversationManager : MonoBehaviour
     public CameraTarget teaganTarget;
     public CameraTarget tolstoyTarget;
 
+    public CameraTarget conversationTarget;
+
     public bool IsInProgress { private set; get; }
 
     private CameraFollow camera;
